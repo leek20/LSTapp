@@ -37,6 +37,11 @@ public class SettingsFragment extends Fragment
 
     private OnFragmentInteractionListener mListener;
 
+    private static boolean mTracking = false;
+    private static int mMode = 0;
+    private static final String STATE_SETTINGS_TRACKING = "state_settings_tracking";
+    private static final String STATE_SETTINGS_MODE = "state_settings_mode";
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -68,6 +73,15 @@ public class SettingsFragment extends Fragment
         }
     }
 
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            //Restore the fragment's state here
+            int i = 0;
+            i++;
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,11 +101,20 @@ public class SettingsFragment extends Fragment
         ToggleButton toggle = (ToggleButton) view.findViewById(R.id.tracking_button);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //this.mTracking = isChecked;
                 mListener.notifyTracking(isChecked);
             }
         });
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        // Serialize the current tab position.
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(STATE_SETTINGS_TRACKING, mTracking);
+        outState.putInt(STATE_SETTINGS_MODE, mMode);
     }
 
 //    // TODO: Rename method, update argument and hook method into UI event
@@ -122,6 +145,7 @@ public class SettingsFragment extends Fragment
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
+        this.mMode = pos;
         mListener.notifyMode(pos);
     }
 
@@ -141,7 +165,6 @@ public class SettingsFragment extends Fragment
      */
     public interface OnFragmentInteractionListener {
         public void notifyTracking(boolean nStatus);
-        public void notifyMode(int nMode);
     }
 
 }

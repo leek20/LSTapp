@@ -114,11 +114,11 @@ public class MapFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        if (mMap != null) {
-//            getActivity().getSupportFragmentManager().beginTransaction()
-//                    .remove(getActivity().getSupportFragmentManager().findFragmentById(R.id.location_map)).commit();
-//            mMap = null;
-//        }
+        if (mMap != null) {
+            //getActivity().getSupportFragmentManager().beginTransaction()
+            //        .remove(getActivity().getSupportFragmentManager().findFragmentById(R.id.location_map));//.commit();
+            //mMap = null;
+        }
     }
 
     @Override
