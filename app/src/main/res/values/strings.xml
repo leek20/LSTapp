@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_map">Map</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">LSTApp</string>
+    <string-array name="mode_choices">
+        <item>Quick Visit</item>
+        <item>Expert Explorer</item>
+    </string-array>
+    <string name="mode_title_text">Mode:</string>
+    <string name="tracking_title_text">Tracking:</string>
+
+</resources>

@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dip"
+    tools:context="com.example.user.lstapp.SettingsFragment" >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent" tools:context="com.example.user.lstapp.SettingsFragment">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="@string/mode_title_text"
+            android:id="@+id/mode_title"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/abc_text_size_body_1_material"
+            android:paddingBottom="@dimen/abc_text_size_display_1_material"
+            android:textSize="@dimen/abc_text_size_body_2_material"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/mode_spinner" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:text="@string/tracking_title_text"
+            android:id="@+id/tracking_title"
+            android:layout_height="wrap_content"
+            android:elegantTextHeight="false"
+            android:paddingTop="@dimen/abc_text_size_body_1_material"
+            android:paddingBottom="@dimen/abc_text_size_display_1_material"
+            android:textSize="@dimen/abc_text_size_body_2_material"
+            android:textStyle="bold" />
+
+        <ToggleButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="New ToggleButton"
+            android:id="@+id/tracking_button"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</LinearLayout>
