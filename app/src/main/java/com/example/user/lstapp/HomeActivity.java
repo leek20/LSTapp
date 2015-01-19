@@ -100,6 +100,10 @@ public class HomeActivity extends ActionBarActivity implements
                                 FragmentTransaction fragmentTransaction) {
         int i = 0;
         i++;
+        Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
+        if(mFragment != null){
+            ((MapFragment) mFragment).drawTest();
+        }
     }
 
 

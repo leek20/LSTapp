@@ -17,9 +17,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polygon;
+import com.google.android.gms.maps.model.PolygonOptions;
+import 	android.graphics.Color;
+
 
 
 /**
@@ -30,7 +36,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * Use the {@link MapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements OnMarkerClickListener {
 
     private static View view;
     /**
@@ -40,6 +46,8 @@ public class MapFragment extends Fragment {
 
     private static GoogleMap mMap;
     private static Double latitude, longitude;
+
+    private OnMarkerClickListener mListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,6 +100,18 @@ public class MapFragment extends Fragment {
         //        longitude), 12.0f));
     }
 
+    public boolean onMarkerClick(Marker marker){
+        return true;
+    }
+
+    public boolean drawTest(){
+        Polygon polygon = mMap.addPolygon(new PolygonOptions()
+                .add(new LatLng(0, 0), new LatLng(0, 5), new LatLng(3, 5), new LatLng(0, 0))
+                .strokeColor(Color.RED)
+                .fillColor(Color.BLUE));
+        return true;
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -103,8 +123,14 @@ public class MapFragment extends Fragment {
             mMap = ((SupportMapFragment) getActivity().getSupportFragmentManager()
                     .findFragmentById(R.id.location_map)).getMap();
             // Check if we were successful in obtaining the map.
-            if (mMap != null)
+            if (mMap != null) {
+                try {
+                    mMap.setOnMarkerClickListener((OnMarkerClickListener) this);
+                } catch (ClassCastException e) {
+                    throw new ClassCastException(" must implement OnMarkerClickListener");
+                }
                 setUpMap();
+            }
         }
     }
 
