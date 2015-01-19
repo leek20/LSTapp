@@ -146,7 +146,7 @@ public class SettingsFragment extends Fragment
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
         this.mMode = pos;
-        mListener.notifyMode(pos);
+        //mListener.notifyMode(pos);
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
