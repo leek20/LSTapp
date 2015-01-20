@@ -44,6 +44,7 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
 
     private static GoogleMap mMap;
     private static Double latitude, longitude;
+    private static boolean markerMode; //if true allow insertion of new markers onto the map
 
     private OnMarkerClickListener mListener;
 
@@ -123,7 +124,7 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
 
     public boolean onMarkerClick(Marker marker){
         //TODO: call LST functions to show pok of region
-        if(marker.isInfoWindowShown()){
+        if(marker.isInfoWindowShown()){//TODO: this isn't perfect, only looks at isVisible() attribute - look at marker listeners maybe?
             marker.hideInfoWindow();
         } else{
             marker.showInfoWindow();
