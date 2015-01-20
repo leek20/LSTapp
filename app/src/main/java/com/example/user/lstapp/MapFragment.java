@@ -123,12 +123,17 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
 
     public boolean onMarkerClick(Marker marker){
         //TODO: call LST functions to show pok of region
-        //drawRangeMarker(marker);
+        if(marker.isInfoWindowShown()){
+            marker.hideInfoWindow();
+        } else{
+            marker.showInfoWindow();
+        }
         return true;
     }
 
     public void onMapClick(LatLng point){
-        Marker pt = mMap.addMarker(new MarkerOptions().position(point).snippet("Pok: TODO"));
+        Marker pt = mMap.addMarker(new MarkerOptions().
+                position(point).title("Insert title here").snippet("Pok: TODO"));
         drawRangeMarker(pt);
     }
 
