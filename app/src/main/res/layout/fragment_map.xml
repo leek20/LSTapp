@@ -10,19 +10,20 @@
     android:name="com.google.android.gms.maps.SupportMapFragment">
 </fragment>
     <RadioGroup
-        android:id="@+id/radio_group_list_selector"
+        android:id="@+id/map_radio_group"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:orientation="horizontal"
         android:background="#80000000"
         android:padding="4dp" >
-
-        <RadioButton
-            android:id="@+id/radioPopular"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="button"
-            android:gravity="center_horizontal|center_vertical"
-            android:layout_weight="1"/>
+        <ToggleButton android:id="@+id/marker_mode_button"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="0"
+            android:textSize="14sp"
+            android:textOn="On"
+            android:textOff="Off"
+            android:checked="false"
+            />
     </RadioGroup>
 </RelativeLayout>

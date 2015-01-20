@@ -3,6 +3,7 @@ package com.example.user.lstapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
@@ -13,8 +14,12 @@ import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.LayoutInflater;
+import android.view.View.OnClickListener;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,7 +27,6 @@ import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.*;
-import android.graphics.Color;
 
 
 
@@ -63,6 +67,15 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
 
         setUpMapIfNeeded(fm); // For setting up the MapFragment
 
+        ToggleButton tb = (ToggleButton) view.findViewById(R.id.marker_mode_button);
+        tb.setOnClickListener(
+                new OnClickListener () {
+                    public void onClick(View v) {
+                        //start/stop allowing new markers to be added
+                        markerMode = !markerMode;
+                    }
+                }
+        );
         if (mMap != null) {
             try {
                 mMap.setOnMarkerClickListener((OnMarkerClickListener) this);
@@ -133,9 +146,11 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
     }
 
     public void onMapClick(LatLng point){
-        Marker pt = mMap.addMarker(new MarkerOptions().
-                position(point).title("Insert title here").snippet("Pok: TODO"));
-        drawRangeMarker(pt);
+        if(markerMode) {
+            Marker pt = mMap.addMarker(new MarkerOptions().
+                    position(point).title("Insert title here").snippet("Pok: TODO"));
+            drawRangeMarker(pt);
+        }
     }
 
     public boolean drawTest(){ //EXAMPLE: of drawing on map, TODO
