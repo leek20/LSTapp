@@ -28,7 +28,7 @@ import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.*;
 
-
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +49,7 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
     private static GoogleMap mMap;
     private static Double latitude, longitude;
     private static boolean markerMode; //if true allow insertion of new markers onto the map
+    private HashMap<Marker, Circle> mCircles = null;
 
     private OnMarkerClickListener mListener;
 
@@ -66,6 +67,8 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
         FragmentManager fm = getChildFragmentManager();
 
         setUpMapIfNeeded(fm); // For setting up the MapFragment
+
+        mCircles = new HashMap<Marker, Circle> ();
 
         ToggleButton tb = (ToggleButton) view.findViewById(R.id.marker_mode_button);
         tb.setOnClickListener(
@@ -128,11 +131,16 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
 
     public void drawRangeMarker(Marker marker){
         LatLng center = marker.getPosition();
+        //int color = Color.argb(127, 255, 0, 255); //alpha, red, green, blue
         Circle circle = mMap.addCircle(new CircleOptions()
                 .center(center)
-                .radius(100)
-                .strokeColor(Color.RED)
-                .fillColor(Color.BLUE));
+                .radius(1000) //find better way to do this than integers.xml -> have to get resources
+                .strokeColor(Color.argb(255, 1, 54, 71))
+                .fillColor(Color.argb(127, 43, 129, 157)));
+        double r = circle.getRadius();
+        int i = circle.getFillColor();
+        int c = R.integer.circle_radius;
+        mCircles.put(marker, circle);
     }
 
     public boolean onMarkerClick(Marker marker){
@@ -150,6 +158,8 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
             Marker pt = mMap.addMarker(new MarkerOptions().
                     position(point).title("Insert title here").snippet("Pok: TODO"));
             drawRangeMarker(pt);
+        } else{ //check if in one of the circles
+
         }
     }
 
