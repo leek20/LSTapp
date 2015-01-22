@@ -28,6 +28,10 @@ import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.*;
 
+import com.ut.mpc.utils.LSTFilter;
+import com.ut.mpc.utils.STPoint;
+
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -50,8 +54,17 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
     private static Double latitude, longitude;
     private static boolean markerMode; //if true allow insertion of new markers onto the map
     private HashMap<Marker, Circle> mCircles = null;
+    private LSTFilter filter = null;
+    private Date cTime = null;
 
     private OnMarkerClickListener mListener;
+
+    @Override
+    public void onCreate (Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        filter = new LSTFilter();
+        cTime = new Date();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -129,48 +142,6 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
                 longitude), 12.0f));
     }
 
-    public void drawRangeMarker(Marker marker){
-        LatLng center = marker.getPosition();
-        //int color = Color.argb(127, 255, 0, 255); //alpha, red, green, blue
-        Circle circle = mMap.addCircle(new CircleOptions()
-                .center(center)
-                .radius(1000) //find better way to do this than integers.xml -> have to get resources
-                .strokeColor(Color.argb(255, 1, 54, 71))
-                .fillColor(Color.argb(127, 43, 129, 157)));
-        double r = circle.getRadius();
-        int i = circle.getFillColor();
-        int c = R.integer.circle_radius;
-        mCircles.put(marker, circle);
-    }
-
-    public boolean onMarkerClick(Marker marker){
-        //TODO: call LST functions to show pok of region
-        if(marker.isInfoWindowShown()){//TODO: this isn't perfect, only looks at isVisible() attribute - look at marker listeners maybe?
-            marker.hideInfoWindow();
-        } else{
-            marker.showInfoWindow();
-        }
-        return true;
-    }
-
-    public void onMapClick(LatLng point){
-        if(markerMode) {
-            Marker pt = mMap.addMarker(new MarkerOptions().
-                    position(point).title("Insert title here").snippet("Pok: TODO"));
-            drawRangeMarker(pt);
-        } else{ //check if in one of the circles
-
-        }
-    }
-
-    public boolean drawTest(){ //EXAMPLE: of drawing on map, TODO
-        Polygon polygon = mMap.addPolygon(new PolygonOptions()
-                .add(new LatLng(0, 0), new LatLng(0, 5), new LatLng(3, 5), new LatLng(0, 0))
-                .strokeColor(Color.RED)
-                .fillColor(Color.BLUE));
-        return true;
-    }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         if (mMap != null)
@@ -195,5 +166,88 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
             //        .remove(getActivity().getSupportFragmentManager().findFragmentById(R.id.location_map));//.commit();
             //mMap = null;
         }
+    }
+
+    public void drawRangeMarker(Marker marker){
+        LatLng center = marker.getPosition();
+        //int color = Color.argb(127, 255, 0, 255); //alpha, red, green, blue
+        Circle circle = mMap.addCircle(new CircleOptions()
+                .center(center)
+                .radius(Constants.map_radius) //find better way to do this than integers.xml -> have to get resources
+                .strokeColor(Color.argb(Constants.l0_s[0], Constants.l0_s[1], Constants.l0_s[2], Constants.l0_s[3]))
+                .fillColor(Color.argb(Constants.l0_f[0], Constants.l0_f[1], Constants.l0_f[2], Constants.l0_f[3])));
+        mCircles.put(marker, circle);
+    }
+
+    public boolean onMarkerClick(Marker marker){
+        //TODO: call LST functions to show pok of region
+        if(marker.isInfoWindowShown()){//TODO: this isn't perfect, only looks at isVisible() attribute - look at marker listeners maybe?
+            marker.hideInfoWindow();
+        } else{
+            marker.showInfoWindow();
+
+            //this is all for testing - fill in correct implementation later
+            double pok = testPok();
+            String update = "Pok: " + pok;
+            marker.setSnippet(update);
+            updateCircle(marker, pok);
+        }
+        return true;
+    }
+
+    private void updateCircle(Marker marker, double pok){
+        Circle circle = mCircles.get(marker);
+        if(pok <= Constants.l0_cuttoff){
+            circle.setFillColor(Color.argb(Constants.l0_f[0],
+                    Constants.l0_f[1], Constants.l0_f[2], Constants.l0_f[3]));
+            circle.setStrokeColor(Color.argb(Constants.l0_s[0],
+                    Constants.l0_s[1], Constants.l0_s[2], Constants.l0_s[3]));
+        } else if(pok <= Constants.l1_cuttoff){
+            circle.setFillColor(Color.argb(Constants.l0_f[0],
+                    Constants.l1_f[1], Constants.l1_f[2], Constants.l1_f[3]));
+            circle.setStrokeColor(Color.argb(Constants.l0_s[0],
+                    Constants.l1_s[1], Constants.l1_s[2], Constants.l1_s[3]));
+        } else{
+            circle.setFillColor(Color.argb(Constants.l0_f[0],
+                    Constants.l2_f[1], Constants.l2_f[2], Constants.l2_f[3]));
+            circle.setStrokeColor(Color.argb(Constants.l0_s[0],
+                    Constants.l2_s[1], Constants.l2_s[2], Constants.l2_s[3]));
+        }
+    }
+
+    private static double[] testArr = {0.0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0};
+    private static int testI = 0;
+    public double testPok(){ //just a random array
+        double ret = testArr[testI];
+        testI = (testI + 1) % testArr.length;
+        return ret;
+    }
+
+    public void insertPointIntoFilter(LatLng point){
+        if(filter != null){
+            long t = cTime.getTime();
+            float l = (float) point.longitude;
+            float ll = (float) point.latitude;
+            filter.insert(new STPoint((float) point.longitude, (float) point.latitude, cTime.getTime()));
+        }
+    }
+
+    public void onMapClick(LatLng point){
+        if(markerMode) {
+            Marker pt = mMap.addMarker(new MarkerOptions().
+                    position(point).title(" ").snippet("Pok: " + testPok()));
+            drawRangeMarker(pt);
+            //insertPointIntoFilter(point);
+        } else{ //check if in one of the circles
+            //insertPointIntoFilter(point); //for testing purposes
+        }
+    }
+
+    public boolean drawTest(){ //EXAMPLE: of drawing on map, TODO
+        Polygon polygon = mMap.addPolygon(new PolygonOptions()
+                .add(new LatLng(0, 0), new LatLng(0, 5), new LatLng(3, 5), new LatLng(0, 0))
+                .strokeColor(Color.RED)
+                .fillColor(Color.BLUE));
+        return true;
     }
 }
