@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.Context;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
@@ -51,7 +52,7 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
      */
 
     private static GoogleMap mMap;
-    private static Double latitude, longitude;
+    private static Double latitude = 0.0, longitude = 0.0;
     private static boolean markerMode; //if true allow insertion of new markers onto the map
     private HashMap<Marker, Circle> mCircles = null;
     private LSTFilter filter = null;
@@ -64,6 +65,9 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
         super.onCreate(savedInstanceState);
         filter = new LSTFilter();
         cTime = new Date();
+        if(getArguments() != null){
+            float[] arr = getArguments().getFloatArray("init_location");
+        }
     }
 
     @Override
@@ -74,8 +78,13 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
         }
         view = inflater.inflate(R.layout.fragment_map, container, false);
         // Passing harcoded values for latitude & longitude. Please change as per your need. This is just used to drop a Marker on the Map
-        latitude = 26.78;
-        longitude = 72.56;
+
+        if(getArguments() != null){
+            float[] arr = getArguments().getFloatArray("init_location");
+            latitude = (double) arr[0];
+            longitude = (double) arr[1];
+        }
+
 
         FragmentManager fm = getChildFragmentManager();
 
@@ -197,22 +206,29 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
 
     private void updateCircle(Marker marker, double pok){
         Circle circle = mCircles.get(marker);
+        int[] arr_f = null;
+        int[] arr_s = null;
         if(pok <= Constants.l0_cuttoff){
-            circle.setFillColor(Color.argb(Constants.l0_f[0],
-                    Constants.l0_f[1], Constants.l0_f[2], Constants.l0_f[3]));
-            circle.setStrokeColor(Color.argb(Constants.l0_s[0],
-                    Constants.l0_s[1], Constants.l0_s[2], Constants.l0_s[3]));
+            arr_f = Constants.l0_f;
+            arr_s = Constants.l0_s;
+
+//            circle.setFillColor(Color.argb(Constants.l0_f[0],
+//                    Constants.l0_f[1], Constants.l0_f[2], Constants.l0_f[3]));
+//            circle.setStrokeColor(Color.argb(Constants.l0_s[0],
+//                    Constants.l0_s[1], Constants.l0_s[2], Constants.l0_s[3]));
         } else if(pok <= Constants.l1_cuttoff){
-            circle.setFillColor(Color.argb(Constants.l0_f[0],
-                    Constants.l1_f[1], Constants.l1_f[2], Constants.l1_f[3]));
-            circle.setStrokeColor(Color.argb(Constants.l0_s[0],
-                    Constants.l1_s[1], Constants.l1_s[2], Constants.l1_s[3]));
+            arr_f = Constants.l1_f;
+            arr_s = Constants.l1_s;
+//            circle.setFillColor(Color.argb(Constants.l0_f[0],
+//                    Constants.l1_f[1], Constants.l1_f[2], Constants.l1_f[3]));
+//            circle.setStrokeColor(Color.argb(Constants.l0_s[0],
+//                    Constants.l1_s[1], Constants.l1_s[2], Constants.l1_s[3]));
         } else{
-            circle.setFillColor(Color.argb(Constants.l0_f[0],
-                    Constants.l2_f[1], Constants.l2_f[2], Constants.l2_f[3]));
-            circle.setStrokeColor(Color.argb(Constants.l0_s[0],
-                    Constants.l2_s[1], Constants.l2_s[2], Constants.l2_s[3]));
+            arr_f = Constants.l2_f;
+            arr_s = Constants.l2_s;
         }
+        circle.setFillColor(Color.argb(arr_f[0], arr_f[1], arr_f[2], arr_f[3]));
+        circle.setStrokeColor(Color.argb(arr_s[0], arr_s[1], arr_s[2], arr_s[3]));
     }
 
     private static double[] testArr = {0.0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0};
@@ -225,10 +241,7 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
 
     public void insertPointIntoFilter(LatLng point){
         if(filter != null){
-            long t = cTime.getTime();
-            float l = (float) point.longitude;
-            float ll = (float) point.latitude;
-            filter.insert(new STPoint((float) point.longitude, (float) point.latitude, cTime.getTime()));
+            //filter.insert(new STPoint((float) point.longitude, (float) point.latitude, cTime.getTime()));
         }
     }
 
