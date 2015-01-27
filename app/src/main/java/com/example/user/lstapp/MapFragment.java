@@ -46,6 +46,7 @@ import java.util.HashMap;
 public class MapFragment extends Fragment implements OnMarkerClickListener, OnMapClickListener {
 
     private static View view;
+    public static boolean setup = false;
     /**
      * Note that this may be null if the Google Play services APK is not
      * available.
@@ -149,6 +150,7 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
         // For zooming automatically to the Dropped PIN Location
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,
                 longitude), 12.0f));
+
     }
 
     @Override

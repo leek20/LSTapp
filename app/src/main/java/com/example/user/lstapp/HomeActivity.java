@@ -213,8 +213,6 @@ public class HomeActivity extends ActionBarActivity implements
     @Override
     public void onTabReselected(ActionBar.Tab tab,
                                 FragmentTransaction fragmentTransaction) {
-        int i = 0;
-        i++;
         Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
         if(mFragment != null){
             ((MapFragment) mFragment).drawTest();
@@ -245,6 +243,12 @@ public class HomeActivity extends ActionBarActivity implements
     }
 
     public void notifyTracking(boolean nStatus){
+        mTracking = nStatus;
+        if(mTracking){
+            startLocationUpdates();
+        } else{
+            stopLocationUpdates();
+        }
     }
 
     @Override
@@ -271,7 +275,7 @@ public class HomeActivity extends ActionBarActivity implements
         } else {
             Toast.makeText(this, "No location detected. Make sure location is enabled on the device.", Toast.LENGTH_LONG).show();
         }
-        startLocationUpdates();
+        //startLocationUpdates();
     }
 
     @Override
@@ -298,7 +302,8 @@ public class HomeActivity extends ActionBarActivity implements
         //mCurrentLocation = location;
         //mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         //updateUI();
-        Toast.makeText(this, "updates!", //getResources().getString(R.string.location_updated_message),
+        String loc = "lat: " + location.getLatitude() + " long: " + location.getLongitude();
+        Toast.makeText(this, loc, //getResources().getString(R.string.location_updated_message),
                 Toast.LENGTH_SHORT).show();
     }
 }
