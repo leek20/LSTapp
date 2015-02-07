@@ -47,6 +47,7 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
 
     private static View view;
     public static boolean setup = false;
+    private mapFragListener mapListener;
     /**
      * Note that this may be null if the Google Play services APK is not
      * available.
@@ -56,7 +57,7 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
     private static Double latitude = 0.0, longitude = 0.0;
     private static boolean markerMode; //if true allow insertion of new markers onto the map
     private HashMap<Marker, Circle> mCircles = null;
-    private LSTFilter filter = null;
+    //private LSTFilter filter = null;
     private Date cTime = null;
 
     private OnMarkerClickListener mListener;
@@ -64,10 +65,20 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
     @Override
     public void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        filter = new LSTFilter();
         cTime = new Date();
         if(getArguments() != null){
             float[] arr = getArguments().getFloatArray("init_location");
+        }
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mapListener = (mapFragListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement mapFragListener");
         }
     }
 
@@ -179,6 +190,12 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mapListener = null;
+    }
+
     public void drawRangeMarker(Marker marker){
         LatLng center = marker.getPosition();
         //int color = Color.argb(127, 255, 0, 255); //alpha, red, green, blue
@@ -213,18 +230,9 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
         if(pok <= Constants.l0_cuttoff){
             arr_f = Constants.l0_f;
             arr_s = Constants.l0_s;
-
-//            circle.setFillColor(Color.argb(Constants.l0_f[0],
-//                    Constants.l0_f[1], Constants.l0_f[2], Constants.l0_f[3]));
-//            circle.setStrokeColor(Color.argb(Constants.l0_s[0],
-//                    Constants.l0_s[1], Constants.l0_s[2], Constants.l0_s[3]));
         } else if(pok <= Constants.l1_cuttoff){
             arr_f = Constants.l1_f;
             arr_s = Constants.l1_s;
-//            circle.setFillColor(Color.argb(Constants.l0_f[0],
-//                    Constants.l1_f[1], Constants.l1_f[2], Constants.l1_f[3]));
-//            circle.setStrokeColor(Color.argb(Constants.l0_s[0],
-//                    Constants.l1_s[1], Constants.l1_s[2], Constants.l1_s[3]));
         } else{
             arr_f = Constants.l2_f;
             arr_s = Constants.l2_s;
@@ -241,20 +249,14 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
         return ret;
     }
 
-    public void insertPointIntoFilter(LatLng point){
-        if(filter != null){
-            //filter.insert(new STPoint((float) point.longitude, (float) point.latitude, cTime.getTime()));
-        }
-    }
-
     public void onMapClick(LatLng point){
         if(markerMode) {
             Marker pt = mMap.addMarker(new MarkerOptions().
                     position(point).title(" ").snippet("Pok: " + testPok()));
             drawRangeMarker(pt);
-            //insertPointIntoFilter(point);
-        } else{ //check if in one of the circles
-            //insertPointIntoFilter(point); //for testing purposes
+            //TODO: insertPointIntoFilter(point);
+        } else{ //TODO: check if in one of the circles
+            //TODO: insertPointIntoFilter(point);
         }
     }
 
@@ -264,5 +266,9 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
                 .strokeColor(Color.RED)
                 .fillColor(Color.BLUE));
         return true;
+    }
+
+    public interface mapFragListener {
+        public void mapInteraction(boolean nStatus);
     }
 }

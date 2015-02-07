@@ -26,11 +26,13 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 
 
 public class HomeActivity extends ActionBarActivity implements
         SettingsFragment.OnFragmentInteractionListener, ActionBar.TabListener,
-        ConnectionCallbacks, OnConnectionFailedListener, LocationListener {
+        ConnectionCallbacks, OnConnectionFailedListener, LocationListener,
+        MapFragment.mapFragListener {
 
     private Fragment mSettingFragment = null;
     private Fragment mMapFragment = null;
@@ -156,16 +158,16 @@ public class HomeActivity extends ActionBarActivity implements
         // connection to GoogleApiClient intact.  Here, we resume receiving
         // location updates if the user has requested them.
 
-        if (mGoogleApiClient.isConnected()) {
-            startLocationUpdates();
-        }
+//        if (mGoogleApiClient.isConnected()) {
+//            startLocationUpdates();
+//        }
     }
 
     @Override
     protected void onPause() {//TODO: when is this called? should still update location when map not shown
         super.onPause();
         // Stop location updates to save battery, but don't disconnect the GoogleApiClient object.
-        stopLocationUpdates();
+        //stopLocationUpdates();
     }
 
     @Override
@@ -305,5 +307,12 @@ public class HomeActivity extends ActionBarActivity implements
         String loc = "lat: " + location.getLatitude() + " long: " + location.getLongitude();
         Toast.makeText(this, loc, //getResources().getString(R.string.location_updated_message),
                 Toast.LENGTH_SHORT).show();
+        Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
+        //if(mFragment != null) TODO:
+        //    ((MapFragment) mFragment).insertPointIntoFilter(new LatLng(location.getLatitude(), location.getLongitude()));
+    }
+
+    public void mapInteraction(boolean nStatus){
+
     }
 }
