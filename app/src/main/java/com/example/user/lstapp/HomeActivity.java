@@ -152,51 +152,24 @@ public class HomeActivity extends ActionBarActivity implements
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        // Within {@code onPause()}, we pause location updates, but leave the
-        // connection to GoogleApiClient intact.  Here, we resume receiving
-        // location updates if the user has requested them.
-
-//        if (mGoogleApiClient.isConnected()) {
-//            startLocationUpdates();
-//        }
-    }
-
-    @Override
-    protected void onPause() {//TODO: when is this called? should still update location when map not shown
-        super.onPause();
-        // Stop location updates to save battery, but don't disconnect the GoogleApiClient object.
-        //stopLocationUpdates();
-    }
-
-    @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-        // When the given tab is selected, show the tab contents in the
-        // container view.
         Fragment mFragment = getSupportFragmentManager().findFragmentByTag(tab.getText().toString());
         if (mFragment == null) {
-            // If not, instantiate and add it to the activity
-//            mFragment = Fragment.instantiate(mActivity, mClass.getName());
-//            ft.add(android.R.id.content, mFragment, mTaint position = getSupportActionBar().getSelectedNavigationIndex ();
             Bundle args = new Bundle();
             int position = getSupportActionBar().getSelectedNavigationIndex ();
             if (position == 0){
-                mFragment = SettingsFragment.newInstance("str1", "str2");
+                mFragment = SettingsFragment.newInstance();
             } else {
                 mFragment = new MapFragment();
                 float[] location = {(float) mLastLocation.getLatitude(), (float) mLastLocation.getLongitude()};
                 args.putFloatArray("init_location", location);
             }
-//        args.putInt(DummySectionFragment.ARG_SECTION_NUMBER,
-//                tab.getPosition() + 1);
             mFragment.setArguments(args);
             FragmentTransaction f = getSupportFragmentManager().beginTransaction();
             f.add(R.id.container, mFragment, tab.getText().toString());
-            //f.addToBackStack(tab.getText().toString());
+
             f.commit();
         } else {
-            // If it exists, simply attach it in order to show it
             ft.show(mFragment);
         }
     }
@@ -207,8 +180,6 @@ public class HomeActivity extends ActionBarActivity implements
         if (mFragment != null) {
             // Detach the fragment, because another one is being attached
             ft.hide(mFragment);
-            //ft.addToBackStack(tab.getText().toString());
-            //ft.commit();
         }
     }
 
@@ -223,8 +194,7 @@ public class HomeActivity extends ActionBarActivity implements
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+    public boolean onCreateOptionsMenu(Menu menu) {// Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
@@ -235,8 +205,6 @@ public class HomeActivity extends ActionBarActivity implements
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -266,18 +234,9 @@ public class HomeActivity extends ActionBarActivity implements
      */
     @Override
     public void onConnected(Bundle connectionHint) {
-        // Provides a simple way of getting a device's location and is well suited for
-        // applications that do not require a fine-grained location and that do not need location
-        // updates. Gets the best and most recent location currently available, which may be null
-        // in rare cases when a location is not available.
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-            //mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
-            //mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
-        } else {
+        if (mLastLocation == null)
             Toast.makeText(this, "No location detected. Make sure location is enabled on the device.", Toast.LENGTH_LONG).show();
-        }
-        //startLocationUpdates();
     }
 
     @Override
@@ -301,9 +260,7 @@ public class HomeActivity extends ActionBarActivity implements
      */
     @Override
     public void onLocationChanged(Location location) {
-        //mCurrentLocation = location;
         //mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-        //updateUI();
         String loc = "lat: " + location.getLatitude() + " long: " + location.getLongitude();
         Toast.makeText(this, loc, //getResources().getString(R.string.location_updated_message),
                 Toast.LENGTH_SHORT).show();
@@ -312,7 +269,7 @@ public class HomeActivity extends ActionBarActivity implements
         //    ((MapFragment) mFragment).insertPointIntoFilter(new LatLng(location.getLatitude(), location.getLongitude()));
     }
 
-    public void mapInteraction(boolean nStatus){
+    public void mapInteraction(boolean nStatus){//TODO
 
     }
 }

@@ -35,37 +35,26 @@ import com.ut.mpc.utils.STPoint;
 import java.util.Date;
 import java.util.HashMap;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MapFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MapFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MapFragment extends Fragment implements OnMarkerClickListener, OnMapClickListener {
 
     private static View view;
     public static boolean setup = false;
     private mapFragListener mapListener;
+
     /**
      * Note that this may be null if the Google Play services APK is not
      * available.
      */
-
     private static GoogleMap mMap;
     private static Double latitude = 0.0, longitude = 0.0;
     private static boolean markerMode; //if true allow insertion of new markers onto the map
     private HashMap<Marker, Circle> mCircles = null;
-    //private LSTFilter filter = null;
-    private Date cTime = null;
 
     private OnMarkerClickListener mListener;
 
     @Override
     public void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        cTime = new Date();
         if(getArguments() != null){
             float[] arr = getArguments().getFloatArray("init_location");
         }
@@ -85,9 +74,8 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (container == null) {
+        if (container == null)
             return null;
-        }
         view = inflater.inflate(R.layout.fragment_map, container, false);
         // Passing harcoded values for latitude & longitude. Please change as per your need. This is just used to drop a Marker on the Map
 
@@ -99,20 +87,15 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
 
 
         FragmentManager fm = getChildFragmentManager();
-
         setUpMapIfNeeded(fm); // For setting up the MapFragment
-
         mCircles = new HashMap<Marker, Circle> ();
 
         ToggleButton tb = (ToggleButton) view.findViewById(R.id.marker_mode_button);
-        tb.setOnClickListener(
-                new OnClickListener () {
-                    public void onClick(View v) {
-                        //start/stop allowing new markers to be added
-                        markerMode = !markerMode;
-                    }
-                }
-        );
+        tb.setOnClickListener(new OnClickListener () {public void onClick(View v) {
+            //start/stop allowing new markers to be added
+            markerMode = !markerMode;
+        }});
+
         if (mMap != null) {
             try {
                 mMap.setOnMarkerClickListener((OnMarkerClickListener) this);
@@ -127,7 +110,6 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
             }
             setUpMap();
         }
-
         return view;
     }
 
@@ -135,11 +117,8 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
     public static void setUpMapIfNeeded(FragmentManager fm) {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
             SupportMapFragment smf = (SupportMapFragment) fm.findFragmentById(R.id.location_map);
             mMap = smf.getMap();
-            //mMap = ((SupportMapFragment) fm.findFragmentById(R.id.location_map)).getMap();
-            // Check if we were successful in obtaining the map.
             if (mMap != null)
                 setUpMap();
         }
@@ -148,9 +127,6 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
     /**
      * This is where we can add markers or lines, add listeners or move the
      * camera.
-     * <p>
-     * This should only be called once and when we are sure that {@link #mMap}
-     * is not null.
      */
     private static void setUpMap() {
         // For showing a move to my loction button
@@ -173,20 +149,6 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getActivity().getSupportFragmentManager()
                     .findFragmentById(R.id.location_map)).getMap();
-            // Check if we were successful in obtaining the map.
-        }
-    }
-
-    /**** The mapfragment's id must be removed from the FragmentManager
-     **** or else if the same it is passed on the next time then
-     **** app will crash ****/
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (mMap != null) {
-            //getActivity().getSupportFragmentManager().beginTransaction()
-            //        .remove(getActivity().getSupportFragmentManager().findFragmentById(R.id.location_map));//.commit();
-            //mMap = null;
         }
     }
 
