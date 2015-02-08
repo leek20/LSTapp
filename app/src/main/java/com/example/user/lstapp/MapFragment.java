@@ -55,6 +55,7 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
     @Override
     public void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         if(getArguments() != null){
             float[] arr = getArguments().getFloatArray("init_location");
         }
@@ -113,6 +114,19 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
         return view;
     }
 
+    /**** The mapfragment's id must be removed from the FragmentManager
+     **** or else if the same it is passed on the next time then
+     **** app will crash ****/
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mMap != null) {
+            //getActivity().getSupportFragmentManager().beginTransaction()
+            //        .remove(getActivity().getSupportFragmentManager().findFragmentById(R.id.location_map)).commit();
+            mMap = null;
+        }
+    }
+
     /***** Sets up the map if it is possible to do so *****/
     public static void setUpMapIfNeeded(FragmentManager fm) {
         // Do a null check to confirm that we have not already instantiated the map.
@@ -157,6 +171,12 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
         super.onDetach();
         mapListener = null;
     }
+
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        //outState.putInt("curChoice", mCurCheckPosition);
+//    }
 
     public void drawRangeMarker(Marker marker){
         LatLng center = marker.getPosition();

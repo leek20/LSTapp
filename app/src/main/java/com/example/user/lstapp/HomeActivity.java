@@ -170,7 +170,9 @@ public class HomeActivity extends ActionBarActivity implements
 
             f.commit();
         } else {
+            //FragmentTransaction f = getSupportFragmentManager().beginTransaction();
             ft.show(mFragment);
+            //f.commit();
         }
     }
 
@@ -179,7 +181,9 @@ public class HomeActivity extends ActionBarActivity implements
         Fragment mFragment = getSupportFragmentManager().findFragmentByTag(tab.getText().toString());
         if (mFragment != null) {
             // Detach the fragment, because another one is being attached
+            //FragmentTransaction f = getSupportFragmentManager().beginTransaction();
             ft.hide(mFragment);
+            //f.commit();
         }
     }
 
