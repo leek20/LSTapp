@@ -172,11 +172,11 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
         mapListener = null;
     }
 
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        //outState.putInt("curChoice", mCurCheckPosition);
-//    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //outState.putInt("curChoice", mCurCheckPosition);
+    }
 
     public void drawRangeMarker(Marker marker){
         LatLng center = marker.getPosition();
