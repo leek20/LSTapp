@@ -53,13 +53,6 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
     protected ResourceProxy mResourceProxy;
     private MapController mapController;
 
-    //private MapView mapView;
-    //private MapController mapController;
-    /**
-     * Note that this may be null if the Google Play services APK is not
-     * available.
-     */
-    private static GoogleMap mMap = null;
     private static GeoPoint defLoc = null;
     private static boolean markerMode; //if true allow insertion of new markers onto the map
     private HashMap<Marker, Circle> mCircles = null;
@@ -70,7 +63,6 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
     public void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        //setContentView(R.layout.osm_main);
         if(getArguments() != null){
             float[] arr = getArguments().getFloatArray("init_location");
             defLoc = new GeoPoint((double)arr[0], (double)arr[1]);
@@ -99,8 +91,8 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
         mMapView = (MapView) V.findViewById(R.id.mapview);
         mMapView.setTileSource(TileSourceFactory.MAPQUESTOSM);
         mMapView.setBuiltInZoomControls(true);
-        mMapView.getController().setZoom(18);
-        mMapView.getController().setCenter(defLoc);//设置中心点 //set the center
+        mMapView.getController().setZoom(12);
+        mMapView.getController().setCenter(defLoc);
 
         ToggleButton tb = (ToggleButton) V.findViewById(R.id.marker_mode_button);
         tb.setOnClickListener(new OnClickListener () {public void onClick(View v) {
@@ -109,41 +101,6 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
         }});
 
         return V;
-        //inflater.inflate(R.layout.osm_main, container, false);
-//        mResourceProxy = new ResourceProxyImpl(inflater.getContext().getApplicationContext());
-//        //mMapView = new MapView(inflater.getContext(), 256, mResourceProxy);
-//        mMapView.setTileSource(TileSourceFactory.MAPQUESTOSM);
-//        mMapView.setBuiltInZoomControls(true);
-//        mMapView.getController().setZoom(18);
-//        mMapView.getController().setCenter(defLoc);//设置中心点 //set the center
-        //View v = inflater.inflate(R.layout.osm_main, container, false);
-
-//        mapView = (MapView) this.findViewById(R.id.mapview);
-//        mapView.setBuiltInZoomControls(true);
-//        mapView.setMultiTouchControls(true);
-//        mapController = (MapController) mapView.getController();
-//        mapController.setZoom(2);
-
-//        view = inflater.inflate(R.layout.fragment_map, container, false);
-//
-//        // Passing harcoded values for latitude & longitude. Please change as per your need. This is just used to drop a Marker on the Map
-//
-//        if(getArguments() != null){
-//            float[] arr = getArguments().getFloatArray("init_location");
-//            latitude = (double) arr[0];
-//            longitude = (double) arr[1];
-//        }
-//
-//
-//        FragmentManager fm = getChildFragmentManager();
-//        //setUpMapIfNeeded(fm); // For setting up the MapFragment
-//        mCircles = new HashMap<Marker, Circle> ();
-
-//        ToggleButton tb = (ToggleButton) view.findViewById(R.id.marker_mode_button);
-//        tb.setOnClickListener(new OnClickListener () {public void onClick(View v) {
-//            //start/stop allowing new markers to be added
-//            markerMode = !markerMode;
-//        }});
 
 //        if (mMap != null) {
 //            try {
@@ -159,72 +116,12 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
 //            }
 //            setUpMap();
 //        }
-//        return view;
-        //return mMapView;
-    }
-
-    /**** The mapfragment's id must be removed from the FragmentManager
-     **** or else if the same it is passed on the next time then
-     **** app will crash ****/
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (mMap != null) {
-            //getActivity().getSupportFragmentManager().beginTransaction()
-            //        .remove(getActivity().getSupportFragmentManager().findFragmentById(R.id.location_map)).commit();
-            mMap = null;
-        }
-    }
-
-    /***** Sets up the map if it is possible to do so *****/
-    public static void setUpMapIfNeeded(FragmentManager fm) {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            //SupportMapFragment smf = (SupportMapFragment) fm.findFragmentById(R.id.location_map);
-            //mMap = smf.getMap();
-            //if (mMap != null)
-            //    setUpMap();
-        }
-    }
-
-    /**
-     * This is where we can add markers or lines, add listeners or move the
-     * camera.
-     */
-    private static void setUpMap() {
-        // For showing a move to my loction button
-        //mMap.setMyLocationEnabled(true);
-        // For dropping a marker at a point on the Map
-        //Marker pt = mMap.addMarker(new MarkerOptions().position(new LatLng(latitude,
-        //        longitude)).snippet("Home Address"));
-        // For zooming automatically to the Dropped PIN Location
-        //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude,
-        //        longitude), 12.0f));
-
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        if (mMap != null)
-            setUpMap();
-
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            //mMap = ((SupportMapFragment) getActivity().getSupportFragmentManager()
-            //        .findFragmentById(R.id.location_map)).getMap();
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mapListener = null;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        //outState.putInt("curChoice", mCurCheckPosition);
     }
 
     public void drawRangeMarker(Marker marker){
@@ -288,22 +185,6 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
             //TODO: insertPointIntoFilter(point);
         } else{ //TODO: check if in one of the circles
             //TODO: insertPointIntoFilter(point);
-        }
-    }
-
-    public boolean drawTest(){ //EXAMPLE: of drawing on map, TODO
-//        Polygon polygon = mMap.addPolygon(new PolygonOptions()
-//                .add(new LatLng(0, 0), new LatLng(0, 5), new LatLng(3, 5), new LatLng(0, 0))
-//                .strokeColor(Color.RED)
-//                .fillColor(Color.BLUE));
-        return true;
-    }
-
-    private static boolean firstLoc = true;
-    public void insertIntoFilter(Location l){
-        if(firstLoc){
-            firstLoc = false;
-            defLoc = new GeoPoint(l);
         }
     }
 

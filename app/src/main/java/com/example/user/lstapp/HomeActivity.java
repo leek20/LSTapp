@@ -190,10 +190,7 @@ public class HomeActivity extends ActionBarActivity implements
     @Override
     public void onTabReselected(ActionBar.Tab tab,
                                 FragmentTransaction fragmentTransaction) {
-        Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
-        if(mFragment != null){
-            ((MapFragment) mFragment).drawTest();
-        }
+        //Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
     }
 
 
@@ -268,9 +265,9 @@ public class HomeActivity extends ActionBarActivity implements
         String loc = "lat: " + location.getLatitude() + " long: " + location.getLongitude();
         Toast.makeText(this, loc, //getResources().getString(R.string.location_updated_message),
                 Toast.LENGTH_SHORT).show();
-        Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
-        if(mFragment != null) //TODO:
-            ((MapFragment) mFragment).insertIntoFilter(location);
+//        Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
+//        if(mFragment != null) //TODO:
+//            ((MapFragment) mFragment).insertIntoFilter(location);
     }
 
     public void sendMapDefaultLocation(Location l){
