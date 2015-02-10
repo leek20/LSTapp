@@ -1,57 +1,44 @@
 package com.example.user.lstapp;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.LayoutInflater;
-import android.view.View.OnClickListener;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+
+import org.osmdroid.DefaultResourceProxyImpl;
+import org.osmdroid.ResourceProxy;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
-import org.osmdroid.ResourceProxy;
-import org.osmdroid.util.ResourceProxyImpl;
+import org.osmdroid.views.overlay.ItemizedIconOverlay;
+import org.osmdroid.views.overlay.ItemizedOverlay;
+import org.osmdroid.views.overlay.OverlayItem;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.*;
-
-import com.ut.mpc.utils.LSTFilter;
-import com.ut.mpc.utils.STPoint;
-
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MapFragment extends Fragment implements OnMarkerClickListener, OnMapClickListener {
 
     private static View view;
-    public static boolean setup = false;
     private mapFragListener mapListener;
 
-    private MapView         mMapView;
+    private MapView mMapView;
     protected ResourceProxy mResourceProxy;
     private MapController mapController;
+    private ItemizedOverlay<OverlayItem> myLocationOverlay;
 
     private static GeoPoint defLoc = null;
     private static boolean markerMode; //if true allow insertion of new markers onto the map
@@ -85,7 +72,7 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
                              Bundle savedInstanceState) {
         if (container == null)
             return null;
-        mResourceProxy = new ResourceProxyImpl(inflater.getContext().getApplicationContext());
+        mResourceProxy = new DefaultResourceProxyImpl(inflater.getContext().getApplicationContext());
         View V = inflater.inflate(R.layout.osm_main, container, false);
 
         mMapView = (MapView) V.findViewById(R.id.mapview);
@@ -99,6 +86,15 @@ public class MapFragment extends Fragment implements OnMarkerClickListener, OnMa
             //start/stop allowing new markers to be added
             markerMode = !markerMode;
         }});
+
+        ArrayList<OverlayItem> overlays = new ArrayList<OverlayItem>();
+        overlays.add(new OverlayItem("New Overlay", "Overlay Description", defLoc));
+        this.myLocationOverlay = new ItemizedIconOverlay<OverlayItem>(overlays, null, mResourceProxy);
+
+
+
+        this.mMapView.getOverlays().add(this.myLocationOverlay);
+        mMapView.invalidate();//force redraw
 
         return V;
 
