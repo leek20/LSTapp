@@ -269,11 +269,11 @@ public class HomeActivity extends ActionBarActivity implements
         Toast.makeText(this, loc, //getResources().getString(R.string.location_updated_message),
                 Toast.LENGTH_SHORT).show();
         Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
-        //if(mFragment != null) TODO:
-        //    ((MapFragment) mFragment).insertPointIntoFilter(new LatLng(location.getLatitude(), location.getLongitude()));
+        if(mFragment != null) //TODO:
+            ((MapFragment) mFragment).insertIntoFilter(location);
     }
 
-    public void mapInteraction(boolean nStatus){//TODO
+    public void sendMapDefaultLocation(Location l){
 
     }
 }

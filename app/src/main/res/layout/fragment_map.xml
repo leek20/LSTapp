@@ -16,7 +16,7 @@
         android:orientation="horizontal"
         android:background="#80000000"
         android:padding="4dp" >
-        <ToggleButton android:id="@+id/marker_mode_button"
+        <ToggleButton android:id="@+id/amarker_mode_button"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             android:layout_weight="0"
