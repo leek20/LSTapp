@@ -83,25 +83,31 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
 
         ToggleButton tb = (ToggleButton) V.findViewById(R.id.marker_mode_button);
         tb.setOnClickListener(new OnClickListener () {public void onClick(View v) {
-            //start/stop allowing new markers to be added
             markerMode = !markerMode;
         }});
 
         MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(getActivity(), this);
         mMapView.getOverlays().add(0, mapEventsOverlay);
 
-        overlays = new ArrayList<OverlayItem>();
-        overlays.add(new OverlayItem("New Overlay", "Overlay Description", defLoc));
-        this.myLocationOverlay = new ItemizedIconOverlay<OverlayItem>(overlays, null, mResourceProxy);
-
-        this.mMapView.getOverlays().add(this.myLocationOverlay);
-        mMapView.invalidate();//force redraw
+        //overlays = new ArrayList<OverlayItem>();
+        //overlays.add(new OverlayItem("New Overlay", "Overlay Description", defLoc));
+        //this.myLocationOverlay = new ItemizedIconOverlay<OverlayItem>(overlays, null, mResourceProxy);
+        //this.mMapView.getOverlays().add(this.myLocationOverlay);
+        //mMapView.invalidate();//force redraw
         return V;
     }
 
     @Override
     public boolean singleTapConfirmedHelper(GeoPoint p) {//related to mapeventsoverlay interface
         //Toast.makeText(getActivity(), "Tapped", Toast.LENGTH_SHORT).show();
+        if(markerMode){
+            Marker startMarker = new Marker(mMapView);
+            mMarkers.add(startMarker);
+            startMarker.setPosition(p);
+            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            mMapView.getOverlays().add(startMarker);
+            mMapView.invalidate();//force redraw
+        }
         return true;
     }
 
@@ -123,18 +129,6 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         double ret = testArr[testI];
         testI = (testI + 1) % testArr.length;
         return ret;
-    }
-
-    public void testOverlay(Location l){
-//        //overlays.add(new OverlayItem("New Overlay", "Overlay Description", new GeoPoint(l)));
-        Marker startMarker = new Marker(mMapView);
-        mMarkers.add(startMarker);
-        startMarker.setPosition(new GeoPoint(l));
-        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        mMapView.getOverlays().add(startMarker);
-        mMapView.invalidate();//force redraw
-        Toast.makeText(getActivity(), "testing add overlay", //getResources().getString(R.string.location_updated_message),
-                Toast.LENGTH_SHORT).show();
     }
 
     public interface mapFragListener {

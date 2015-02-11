@@ -23,7 +23,7 @@ import com.google.android.gms.location.LocationServices;
 public class HomeActivity extends ActionBarActivity implements
         SettingsFragment.OnFragmentInteractionListener, ActionBar.TabListener,
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener,
-        MapFragment.mapFragListener {
+        MapFragment.mapFragListener, PlacesFragment.PlacesFragmentInteractionListener {
 
     private Fragment mSettingFragment = null;
     private Fragment mMapFragment = null;
@@ -53,6 +53,8 @@ public class HomeActivity extends ActionBarActivity implements
         actionBar.addTab(actionBar.newTab().setText(R.string.action_settings)
                 .setTabListener(this));
         actionBar.addTab(actionBar.newTab().setText(R.string.action_map)
+                .setTabListener(this));
+        actionBar.addTab(actionBar.newTab().setText(R.string.action_places)
                 .setTabListener(this));
 
         buildGoogleApiClient();
@@ -150,10 +152,12 @@ public class HomeActivity extends ActionBarActivity implements
             int position = getSupportActionBar().getSelectedNavigationIndex ();
             if (position == 0){
                 mFragment = SettingsFragment.newInstance();
-            } else {
+            } else if (position == 1){
                 mFragment = new MapFragment();
                 float[] location = {(float) mLastLocation.getLatitude(), (float) mLastLocation.getLongitude()};
                 args.putFloatArray("init_location", location);
+            } else{
+                mFragment = (Fragment) PlacesFragment.newInstance("placeholderParam1", "placeholderParam2");
             }
             mFragment.setArguments(args);
             FragmentTransaction f = getSupportFragmentManager().beginTransaction();
@@ -254,11 +258,10 @@ public class HomeActivity extends ActionBarActivity implements
     public void onLocationChanged(Location location) {
         //mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         String loc = "lat: " + location.getLatitude() + " long: " + location.getLongitude();
-        Toast.makeText(this, loc, //getResources().getString(R.string.location_updated_message),
-                Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, loc, Toast.LENGTH_SHORT).show();
         Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
-        if(mFragment != null) //TODO:
-            ((MapFragment) mFragment).testOverlay(location);
+//        if(mFragment != null) //TODO:
+//            ((MapFragment) mFragment).testOverlay(location);
     }
 
     public void sendMapDefaultLocation(Location l){
