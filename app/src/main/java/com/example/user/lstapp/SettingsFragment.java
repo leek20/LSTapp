@@ -13,7 +13,6 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
