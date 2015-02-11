@@ -18,6 +18,7 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.ut.mpc.utils.STPoint;
 
 
 public class HomeActivity extends ActionBarActivity implements
@@ -25,30 +26,27 @@ public class HomeActivity extends ActionBarActivity implements
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener,
         MapFragment.mapFragListener, PlacesFragment.PlacesFragmentInteractionListener {
 
-    private Fragment mSettingFragment = null;
-    private Fragment mMapFragment = null;
-
     /**
      * Stores parameters for requests to the FusedLocationProviderApi.
      */
     protected LocationRequest mLocationRequest;
-
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
+    private SpatialArray LSTFilter;
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
     private static boolean mTracking = false;
-    private static int mMode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        LSTFilter = new SpatialArray();
+
         // Set up the action bar to show tabs.
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
         // for each of the sections in the app, add a tab to the action bar.
         actionBar.addTab(actionBar.newTab().setText(R.string.action_settings)
                 .setTabListener(this));
@@ -174,17 +172,12 @@ public class HomeActivity extends ActionBarActivity implements
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
         Fragment mFragment = getSupportFragmentManager().findFragmentByTag(tab.getText().toString());
-        if (mFragment != null) {
-            // Detach the fragment, because another one is being attached
-            //FragmentTransaction f = getSupportFragmentManager().beginTransaction();
+        if (mFragment != null)
             ft.hide(mFragment);
-            //f.commit();
-        }
     }
 
     @Override
-    public void onTabReselected(ActionBar.Tab tab,
-                                FragmentTransaction fragmentTransaction) {
+    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         //Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
     }
 
@@ -255,16 +248,20 @@ public class HomeActivity extends ActionBarActivity implements
      * Callback that fires when the location changes.
      */
     @Override
-    public void onLocationChanged(Location location) {
+    public void onLocationChanged(Location l) {
         //mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
-        String loc = "lat: " + location.getLatitude() + " long: " + location.getLongitude();
-        Toast.makeText(this, loc, Toast.LENGTH_SHORT).show();
-        Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
-//        if(mFragment != null) //TODO:
+//        Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
+//        if(mFragment != null)
 //            ((MapFragment) mFragment).testOverlay(location);
+        if(mTracking) {
+            LSTFilter.insert(new STPoint((float) l.getLongitude(),
+                    (float) l.getLatitude(), System.currentTimeMillis()));
+            String loc = "lat: " + l.getLatitude() + " long: " + l.getLongitude();
+            Toast.makeText(this, loc, Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public void sendMapDefaultLocation(Location l){
+    public void sendMapDefaultLocation(Location l){//TODO: eventually turn this into query function
 
     }
 }
