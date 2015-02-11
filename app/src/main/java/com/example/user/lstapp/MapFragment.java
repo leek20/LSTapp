@@ -1,7 +1,6 @@
 package com.example.user.lstapp;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,12 +12,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.LatLng;
-import org.osmdroid.bonuspack.overlays.Marker;
 
 import org.osmdroid.DefaultResourceProxyImpl;
 import org.osmdroid.ResourceProxy;
+import org.osmdroid.bonuspack.overlays.MapEventsOverlay;
+import org.osmdroid.bonuspack.overlays.MapEventsReceiver;
+import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
@@ -28,9 +27,8 @@ import org.osmdroid.views.overlay.ItemizedOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements MapEventsReceiver {
 
     private static View view;
     private mapFragListener mapListener;
@@ -39,8 +37,9 @@ public class MapFragment extends Fragment {
     protected ResourceProxy mResourceProxy;
     private MapController mapController;
     private ItemizedOverlay<OverlayItem> myLocationOverlay;
-    ArrayList<OverlayItem> overlays;
+    ArrayList<OverlayItem> overlays; //I don't think we need this?
 
+    ArrayList<Marker> mMarkers;
     private static GeoPoint defLoc = null;
     private static boolean markerMode; //if true allow insertion of new markers onto the map
 
@@ -70,6 +69,7 @@ public class MapFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mMarkers = new ArrayList<Marker>();
         if (container == null)
             return null;
         mResourceProxy = new DefaultResourceProxyImpl(inflater.getContext().getApplicationContext());
@@ -87,6 +87,9 @@ public class MapFragment extends Fragment {
             markerMode = !markerMode;
         }});
 
+        MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(getActivity(), this);
+        mMapView.getOverlays().add(0, mapEventsOverlay);
+
         overlays = new ArrayList<OverlayItem>();
         overlays.add(new OverlayItem("New Overlay", "Overlay Description", defLoc));
         this.myLocationOverlay = new ItemizedIconOverlay<OverlayItem>(overlays, null, mResourceProxy);
@@ -94,6 +97,18 @@ public class MapFragment extends Fragment {
         this.mMapView.getOverlays().add(this.myLocationOverlay);
         mMapView.invalidate();//force redraw
         return V;
+    }
+
+    @Override
+    public boolean singleTapConfirmedHelper(GeoPoint p) {//related to mapeventsoverlay interface
+        //Toast.makeText(getActivity(), "Tapped", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    @Override
+    public boolean longPressHelper(GeoPoint p) {//related to mapeventsoverlay interface
+        //DO NOTHING FOR NOW:
+        return false;
     }
 
     @Override
@@ -113,6 +128,7 @@ public class MapFragment extends Fragment {
     public void testOverlay(Location l){
 //        //overlays.add(new OverlayItem("New Overlay", "Overlay Description", new GeoPoint(l)));
         Marker startMarker = new Marker(mMapView);
+        mMarkers.add(startMarker);
         startMarker.setPosition(new GeoPoint(l));
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         mMapView.getOverlays().add(startMarker);
