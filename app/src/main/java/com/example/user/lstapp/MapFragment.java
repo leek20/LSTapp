@@ -158,7 +158,6 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
     }
 
     public interface mapFragListener {
-
         public void sendMapDefaultLocation(Location l);
     }
 }

@@ -18,6 +18,7 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.ut.mpc.utils.LSTFilter;
 import com.ut.mpc.utils.STPoint;
 
 
@@ -32,7 +33,7 @@ public class HomeActivity extends ActionBarActivity implements
     protected LocationRequest mLocationRequest;
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
-    private SpatialArray LSTFilter;
+    private LSTFilter filter;
 
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
     private static boolean mTracking = false;
@@ -42,7 +43,7 @@ public class HomeActivity extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        LSTFilter = new SpatialArray();
+        filter = new LSTFilter(new SpatialArray());
 
         // Set up the action bar to show tabs.
         final ActionBar actionBar = getSupportActionBar();
@@ -254,9 +255,11 @@ public class HomeActivity extends ActionBarActivity implements
 //        if(mFragment != null)
 //            ((MapFragment) mFragment).testOverlay(location);
         if(mTracking) {
-            LSTFilter.insert(new STPoint((float) l.getLongitude(),
-                    (float) l.getLatitude(), System.currentTimeMillis()));
-            String loc = "lat: " + l.getLatitude() + " long: " + l.getLongitude();
+            STPoint pt = new STPoint((float) l.getLongitude(),
+                    (float) l.getLatitude(), System.currentTimeMillis());
+            filter.insert(pt);
+            double prob = filter.pointPoK(pt);
+            String loc = "lat: " + l.getLatitude() + " long: " + l.getLongitude() + " PoK: " + prob;
             Toast.makeText(this, loc, Toast.LENGTH_SHORT).show();
         }
     }
