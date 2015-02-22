@@ -129,12 +129,11 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
                         public void onClick(DialogInterface dialog, int id) {
                             //String str = "PASS: " + q.getLongitude() + " str: " + mEdit.getText();
                             //Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
-                            //TODO: this is where you would add a call to add the location to the places tab
                             Marker startMarker = new Marker(mMapView);
                             int lProgress = sbL.getProgress();
                             int uProgress = sbU.getProgress();
                             String label = mEdit.getText().toString();
-                            //send this to the places tab
+                            //TODO: this is where you would add a call to add the location to the places tab
                             mMarkers.add(startMarker);
                             startMarker.setPosition(q);
                             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
