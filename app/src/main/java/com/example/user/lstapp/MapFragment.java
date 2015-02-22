@@ -3,6 +3,7 @@ package com.example.user.lstapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,7 +13,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
@@ -22,6 +22,7 @@ import org.osmdroid.ResourceProxy;
 import org.osmdroid.bonuspack.overlays.MapEventsOverlay;
 import org.osmdroid.bonuspack.overlays.MapEventsReceiver;
 import org.osmdroid.bonuspack.overlays.Marker;
+import org.osmdroid.bonuspack.overlays.Polygon;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
@@ -40,7 +41,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
     protected ResourceProxy mResourceProxy;
     private MapController mapController;
     private ItemizedOverlay<OverlayItem> myLocationOverlay;
-    ArrayList<OverlayItem> overlays; //I don't think we need this?
+    ArrayList<Polygon> rectangles; //I don't think we need this?
 
     ArrayList<Marker> mMarkers;
     private static GeoPoint defLoc = null;
@@ -52,6 +53,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
     public void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        rectangles = new ArrayList<Polygon>();
         if(getArguments() != null){
             float[] arr = getArguments().getFloatArray("init_location");
             defLoc = new GeoPoint((double)arr[0], (double)arr[1]);
@@ -129,6 +131,15 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
                         public void onClick(DialogInterface dialog, int id) {
                             //String str = "PASS: " + q.getLongitude() + " str: " + mEdit.getText();
                             //Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+
+                            Polygon circle = new Polygon(getActivity());
+                            circle.setPoints(Polygon.pointsAsCircle(q, 2000.0));
+                            circle.setFillColor(0x12121212);
+                            circle.setStrokeColor(Color.RED);
+                            circle.setStrokeWidth(2);
+                            rectangles.add(circle);//oh the irony
+                            mMapView.getOverlays().add(circle);
+
                             Marker startMarker = new Marker(mMapView);
                             int lProgress = sbL.getProgress();
                             int uProgress = sbU.getProgress();
@@ -138,6 +149,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
                             startMarker.setPosition(q);
                             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                             mMapView.getOverlays().add(startMarker);
+
                             mMapView.invalidate();//force redraw
                         }
                     })
