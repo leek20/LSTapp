@@ -6,10 +6,13 @@ import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
@@ -101,31 +104,35 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
     public boolean singleTapConfirmedHelper(GeoPoint p) {//related to mapeventsoverlay interface
         //Toast.makeText(getActivity(), "Tapped", Toast.LENGTH_SHORT).show();
         if(markerMode){
+            final GeoPoint q = p;
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             LayoutInflater inflater = getActivity().getLayoutInflater();
-            builder.setView(inflater.inflate(R.layout.location_name_dialog, null))
+            View view = inflater.inflate(R.layout.location_name_dialog, null);
+            final EditText mEdit = (EditText) view.findViewById(R.id.location_dialog);
+            builder.setView(view)
                     .setTitle(R.string.dialog_location_title)
                     .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            // User clicked OK, so save the mSelectedItems results somewhere
-                            // or return them to the component that opened the dialog
-                            int i = 0;
+                            //String str = "PASS: " + q.getLongitude() + " str: " + mEdit.getText();
+                            //Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+                            //TODO: this is where you would add a call to add the location to the places tab
+                            Marker startMarker = new Marker(mMapView);
+                            mMarkers.add(startMarker);
+                            startMarker.setPosition(q);
+                            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                            mMapView.getOverlays().add(startMarker);
+                            mMapView.invalidate();//force redraw
                         }
                     })
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
+
                         }
                     });
             AlertDialog dialog = builder.create();
             dialog.show();
-            Marker startMarker = new Marker(mMapView);
-            mMarkers.add(startMarker);
-            startMarker.setPosition(p);
-            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            mMapView.getOverlays().add(startMarker);
-            mMapView.invalidate();//force redraw
         }
         return true;
     }
