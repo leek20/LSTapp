@@ -1,6 +1,8 @@
 package com.example.user.lstapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
@@ -22,7 +23,6 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.ItemizedOverlay;
 import org.osmdroid.views.overlay.OverlayItem;
 
@@ -101,6 +101,25 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
     public boolean singleTapConfirmedHelper(GeoPoint p) {//related to mapeventsoverlay interface
         //Toast.makeText(getActivity(), "Tapped", Toast.LENGTH_SHORT).show();
         if(markerMode){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            builder.setView(inflater.inflate(R.layout.location_name_dialog, null))
+                    .setTitle(R.string.dialog_location_title)
+                    .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked OK, so save the mSelectedItems results somewhere
+                            // or return them to the component that opened the dialog
+                            int i = 0;
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
             Marker startMarker = new Marker(mMapView);
             mMarkers.add(startMarker);
             startMarker.setPosition(p);
@@ -132,6 +151,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
     }
 
     public interface mapFragListener {
+
         public void sendMapDefaultLocation(Location l);
     }
 }
