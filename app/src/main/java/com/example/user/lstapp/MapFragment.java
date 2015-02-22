@@ -23,6 +23,7 @@ import org.osmdroid.bonuspack.overlays.MapEventsOverlay;
 import org.osmdroid.bonuspack.overlays.MapEventsReceiver;
 import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.bonuspack.overlays.Polygon;
+import org.osmdroid.bonuspack.overlays.MarkerInfoWindow;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
@@ -133,7 +134,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
                             //Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
 
                             Polygon circle = new Polygon(getActivity());
-                            circle.setPoints(Polygon.pointsAsCircle(q, 2000.0));
+                            circle.setPoints(Polygon.pointsAsRect(q, 2000.0, 2000.0));
                             circle.setFillColor(0x12121212);
                             circle.setStrokeColor(Color.RED);
                             circle.setStrokeWidth(2);
@@ -148,6 +149,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
                             mMarkers.add(startMarker);
                             startMarker.setPosition(q);
                             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+//                            startMarker.setInfoWindow(new MarkerInfoWindow(R.layout.bonuspack_bubble, mMapView));
                             mMapView.getOverlays().add(startMarker);
 
                             mMapView.invalidate();//force redraw
