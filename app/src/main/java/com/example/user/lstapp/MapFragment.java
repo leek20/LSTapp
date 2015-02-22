@@ -11,7 +11,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TimePicker;
+import android.widget.SeekBar;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
@@ -108,8 +109,18 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View view = inflater.inflate(R.layout.location_name_dialog, null);
             final EditText mEdit = (EditText) view.findViewById(R.id.location_dialog);
-//            TimePicker tp = (TimePicker) view.findViewById(R.id.time_picker);
-//            boolean a = tp.isEnabled();
+            SeekBar sb = (SeekBar) view.findViewById(R.id.seek_lower);
+            sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                    //Do something here with new value
+                }
+                public void onStartTrackingTouch(SeekBar seekBar){
+
+                }
+                public void onStopTrackingTouch(SeekBar seekBar){
+
+                }
+            });
             builder.setView(view)
                     .setTitle(R.string.dialog_location_title)
                     .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
@@ -134,6 +145,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
                     });
             AlertDialog dialog = builder.create();
             dialog.show();
+
         }
         return true;
     }
