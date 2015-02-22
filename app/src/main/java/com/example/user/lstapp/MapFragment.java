@@ -109,18 +109,19 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View view = inflater.inflate(R.layout.location_name_dialog, null);
             final EditText mEdit = (EditText) view.findViewById(R.id.location_dialog);
-            SeekBar sb = (SeekBar) view.findViewById(R.id.seek_lower);
-            sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-                    //Do something here with new value
-                }
-                public void onStartTrackingTouch(SeekBar seekBar){
-
-                }
-                public void onStopTrackingTouch(SeekBar seekBar){
-
-                }
-            });
+            final SeekBar sbL = (SeekBar) view.findViewById(R.id.seek_lower);
+            final SeekBar sbU = (SeekBar) view.findViewById(R.id.seek_upper);
+//            sbL.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+//                    //Do something here with new value
+//                }
+//                public void onStartTrackingTouch(SeekBar seekBar){
+//
+//                }
+//                public void onStopTrackingTouch(SeekBar seekBar){
+//
+//                }
+//            });
             builder.setView(view)
                     .setTitle(R.string.dialog_location_title)
                     .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
@@ -130,6 +131,10 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
                             //Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
                             //TODO: this is where you would add a call to add the location to the places tab
                             Marker startMarker = new Marker(mMapView);
+                            int lProgress = sbL.getProgress();
+                            int uProgress = sbU.getProgress();
+                            String label = mEdit.getText().toString();
+                            //send this to the places tab
                             mMarkers.add(startMarker);
                             startMarker.setPosition(q);
                             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
