@@ -6,13 +6,12 @@ import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
@@ -31,7 +30,7 @@ import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
 
-public class MapFragment extends Fragment implements MapEventsReceiver {
+public class MapFragment extends Fragment implements MapEventsReceiver{
 
     private static View view;
     private mapFragListener mapListener;
@@ -109,6 +108,8 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View view = inflater.inflate(R.layout.location_name_dialog, null);
             final EditText mEdit = (EditText) view.findViewById(R.id.location_dialog);
+//            TimePicker tp = (TimePicker) view.findViewById(R.id.time_picker);
+//            boolean a = tp.isEnabled();
             builder.setView(view)
                     .setTitle(R.string.dialog_location_title)
                     .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
