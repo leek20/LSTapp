@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    <EditText
+        android:id="@+id/location_dialog"
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"/>
+    <TextView
+        android:text="Lower: "
+        android:id="@+id/seek_lower_label"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignBottom="@+id/seek_lower"
+        android:gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/location_dialog"/>
+    <SeekBar android:max="48"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/seek_lower"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/location_dialog"
+        android:layout_toRightOf="@+id/seek_lower_label"/>
+    <TextView
+        android:text="Upper: "
+        android:layout_height="wrap_content"
+        android:id="@+id/seek_upper_label"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_alignBottom="@+id/seek_upper"
+        android:gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/seek_lower"/>
+    <SeekBar android:max="48"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/seek_lower"
+        android:id="@+id/seek_upper"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/seek_upper_label"/>
+</RelativeLayout>
+<!-- From: file:/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/src/main/res/layout/location_name_dialog.xml -->

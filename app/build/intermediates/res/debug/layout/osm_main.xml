@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <org.osmdroid.views.MapView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/mapview">
+    </org.osmdroid.views.MapView>
+    <RadioGroup
+        android:id="@+id/map_radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="#00000000"
+        android:layout_alignParentBottom="true"
+        android:padding="4dp" >
+        <ToggleButton android:id="@+id/marker_mode_button"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="0"
+            android:textSize="14sp"
+            android:textOn="On"
+            android:textOff="Off"
+            android:checked="false" />
+    </RadioGroup>
+
+</RelativeLayout>
+<!-- From: file:/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/src/main/res/layout/osm_main.xml -->

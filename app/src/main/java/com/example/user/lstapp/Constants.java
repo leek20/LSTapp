@@ -22,4 +22,18 @@ public class Constants {
 
     public static double l0_cuttoff = .25;
     public static double l1_cuttoff = .75;
+
+    public static final int LOC_POLLING_INTERVAL = 1000 * 10; // ms
+    public static final int LOC_FASTEST_INTERVAL = 1000; // ms
+
+    public static final double highPoKThresh = .7;
+    public static final double mediumPoKThresh = .45;
+    public static final double stdPoKThresh = .2;
+    public static final double lowPoKThresh = .05;
+
+    public static final String highPoKLabel = "Expert Explorer";
+    public static final String mediumPoKLabel = "Strong Tourist";
+    public static final String stdPokLabel = "Standard Viewing";
+    public static final String lowPoKLabel = "Quick Sighting";
+    public static final String noPoKLabel = "Undiscovered";
 }

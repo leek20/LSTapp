@@ -12,7 +12,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;

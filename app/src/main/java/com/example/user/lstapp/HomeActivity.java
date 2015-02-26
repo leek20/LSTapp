@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.nathanielwendt.lstrtree.SQLiteRTree;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
@@ -20,12 +21,14 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.ut.mpc.utils.LSTFilter;
 import com.ut.mpc.utils.STPoint;
+import com.ut.mpc.utils.STRegion;
 
 
 public class HomeActivity extends ActionBarActivity implements
         SettingsFragment.OnFragmentInteractionListener, ActionBar.TabListener,
         ConnectionCallbacks, OnConnectionFailedListener, LocationListener,
-        MapFragment.mapFragListener, PlacesFragment.PlacesFragmentInteractionListener {
+        MapFragment.mapFragListener, PlacesFragment.PlacesFragmentInteractionListener,
+        CreatePlaceFragment.CreatePlaceFragmentDoneListener, PlaceFragment.OnFragmentInteractionListener {
 
     /**
      * Stores parameters for requests to the FusedLocationProviderApi.
@@ -43,7 +46,8 @@ public class HomeActivity extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        filter = new LSTFilter(new SpatialArray());
+        SQLiteRTree rtree = new SQLiteRTree(this, "RTreeMain");
+        filter = new LSTFilter(rtree);
 
         // Set up the action bar to show tabs.
         final ActionBar actionBar = getSupportActionBar();
@@ -147,6 +151,7 @@ public class HomeActivity extends ActionBarActivity implements
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
         Fragment mFragment = getSupportFragmentManager().findFragmentByTag(tab.getText().toString());
         if (mFragment == null) {
+            String tag = tab.getText().toString();
             Bundle args = new Bundle();
             int position = getSupportActionBar().getSelectedNavigationIndex ();
             if (position == 0){
@@ -156,11 +161,13 @@ public class HomeActivity extends ActionBarActivity implements
                 float[] location = {(float) mLastLocation.getLatitude(), (float) mLastLocation.getLongitude()};
                 args.putFloatArray("init_location", location);
             } else{
-                mFragment = (Fragment) PlacesFragment.newInstance("placeholderParam1", "placeholderParam2");
+                mFragment = (Fragment) PlaceFragment.newInstance("", "");
+                //tag = "CREATEPLACE";
+                //mFragment = (Fragment) PlacesFragment.newInstance("placeholderParam1", "placeholderParam2");
             }
             mFragment.setArguments(args);
             FragmentTransaction f = getSupportFragmentManager().beginTransaction();
-            f.add(R.id.container, mFragment, tab.getText().toString());
+            f.add(R.id.container, mFragment, tag);
 
             f.commit();
         } else {
@@ -266,5 +273,63 @@ public class HomeActivity extends ActionBarActivity implements
 
     public void sendMapDefaultLocation(Location l){//TODO: eventually turn this into query function
 
+    }
+
+    @Override
+    public void createPlace(String regionAsString) {
+        Fragment oldFragment = getSupportFragmentManager().findFragmentByTag("Settings");
+
+//        SharedPreferences sharedpreferences = getSharedPreferences("Places", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedpreferences.edit();
+//        editor.clear().commit();
+
+        Fragment mFragment = (Fragment) CreatePlaceFragment.newInstance(regionAsString);
+        FragmentTransaction f = getSupportFragmentManager().beginTransaction();
+        f.add(R.id.container, mFragment, "CREATEPLACE");
+        if (mFragment != null)
+            f.hide(oldFragment);
+        f.commit();
+    }
+
+    @Override
+    public void onFragmentDone() {
+        Log.d("LST", "fragment is done from picture");
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag("CREATEPLACE");
+        if(fragment != null)
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+
+        Fragment oldFragment = getSupportFragmentManager().findFragmentByTag("Settings");
+        FragmentTransaction f = getSupportFragmentManager().beginTransaction();
+        f.show(oldFragment);
+        f.commit();
+//        FragmentManager mgr = getSupportFragmentManager();
+//        FragmentTransaction transaction = mgr.beginTransaction();
+//
+//        // Create new fragment and transaction
+//        Bundle args = new Bundle();
+//        Fragment mFragment = new MapFragment();
+//        float[] location = {(float) mLastLocation.getLatitude(), (float) mLastLocation.getLongitude()};
+//        args.putFloatArray("init_location", location);
+//        mFragment.setArguments(args);
+//
+//        // Replace whatever is in the fragment_container view with this fragment,
+//        // and add the transaction to the back stack
+//        transaction.replace(R.id.container, mFragment);
+//        transaction.addToBackStack(null);
+//
+//        // Commit the transaction
+//        transaction.commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(String id) {
+
+    }
+
+    @Override
+    public double windowPoK(STRegion region) {
+        return Math.random();
+        //return filter.windowPoK(region);
     }
 }
