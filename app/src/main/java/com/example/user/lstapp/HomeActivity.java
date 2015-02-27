@@ -360,8 +360,8 @@ public class HomeActivity extends ActionBarActivity implements
                 return;
             int ind = ((MapFragment) mFragment).mMarkers.indexOf(pin); //markers and rectangles are indexed the same
             List<GeoPoint> bnds = ((MapFragment) mFragment).rectangles.get(ind).getPoints();
-
-            //NOTE: by default I've set the bounds of the rectangle to be 2000 x 2000 in meters
+            int i = 0;
+            i++;
             //STPoint b = new STPoint(pin.getLongitude() -);
 
             //STRegion bnds = STRegion(b, e);
