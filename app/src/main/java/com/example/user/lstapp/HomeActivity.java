@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.nathanielwendt.lstrtree.SQLiteRTree;
@@ -325,6 +326,16 @@ public class HomeActivity extends ActionBarActivity implements
     @Override
     public void onFragmentInteraction(String id) {
 
+    }
+
+    public void queryPins(View view) {
+        // Do something in response to button
+        Toast.makeText(this, "Query Timeeeeee~~", Toast.LENGTH_SHORT).show();
+    }
+
+    public void undoSelection(View view) {
+        // Do something in response to button
+        Toast.makeText(this, "Undo pin stub~~", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -218,7 +218,6 @@
     <string name="action_places">Places</string>
     <string name="action_settings">Settings</string>
     <string name="app_name">LSTApp</string>
-    <string name="cancel">Cancel</string>
     <!-- From: file:/Users/user/Documents/workspace/LSTapp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/common_strings.xml -->
     <eat-comment/>
     <string name="common_android_wear_notification_needs_update_text">An application requires an update to the Android Wear app.</string>
@@ -258,8 +257,9 @@
     <eat-comment/>
     <string name="dialog_location_title">Location Title:</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_query">Query All</string>
+    <string name="label_undo">Undo Pin</string>
     <string name="mode_title_text">Mode:</string>
-    <string name="okay">Okay</string>
     <!-- From: file:/Users/user/Documents/workspace/LSTapp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/res/values/admob_strings.xml -->
     <eat-comment/>
     <string name="store_picture_message">"Allow Ad to store image in Picture gallery?"</string>

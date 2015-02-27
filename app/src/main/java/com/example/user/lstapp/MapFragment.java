@@ -1,19 +1,15 @@
 package com.example.user.lstapp;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.ToggleButton;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 
@@ -23,7 +19,6 @@ import org.osmdroid.bonuspack.overlays.MapEventsOverlay;
 import org.osmdroid.bonuspack.overlays.MapEventsReceiver;
 import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.bonuspack.overlays.Polygon;
-import org.osmdroid.bonuspack.overlays.MarkerInfoWindow;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
@@ -146,7 +141,6 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
                             Marker startMarker = new Marker(mMapView);
                             int lProgress = sbL.getProgress();
                             int uProgress = sbU.getProgress();
-                            //String label = mEdit.getText().toString();
                             //TODO: this is where you would add a call to add the location to the places tab
                             mMarkers.add(startMarker);
                             startMarker.setPosition(p);
