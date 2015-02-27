@@ -53,23 +53,35 @@
             android:layout_alignParentLeft="true"/>
     </RelativeLayout>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_weight="1"
         android:layout_height="0dp"
         android:layout_alignParentBottom="true"
         android:id="@+id/button_group">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:layout_toRightOf="@+id/button_query"
-        android:id="@+id/button_drop_pin"
-        android:layout_alignParentBottom="true"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button_query"
-        android:layout_alignParentBottom="true"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_query"
+            android:id="@+id/button_query"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:onClick="queryPins"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_undo"
+            android:id="@+id/button_undo"
+            android:layout_toRightOf="@+id/button_query"
+            android:layout_toLeftOf="@+id/button_set_pin"
+            android:layout_alignParentBottom="true"
+            android:onClick="undoSelection"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set/Confirm Pin"
+            android:id="@+id/button_set_pin"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:onClick="confirmPin"/>
     </RelativeLayout>
 </LinearLayout>

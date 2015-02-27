@@ -1,6 +1,7 @@
 package com.example.user.lstapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
@@ -27,6 +29,7 @@ public class SettingsFragment extends Fragment
     private OnFragmentInteractionListener mListener;
 
     private static boolean mTracking = false;
+    private static boolean onTracking = false;
     private static int mMode = 0;
 
     public static SettingsFragment newInstance() {
@@ -73,6 +76,27 @@ public class SettingsFragment extends Fragment
             }
         });
 
+        Button newPlace = (Button) view.findViewById(R.id.newplace);
+        newPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity activity = (HomeActivity) getActivity();
+                if(onTracking){
+                    onTracking = false;
+                    activity.startService(new Intent(activity, LocationService.class));
+                } else {
+                    onTracking = true;
+                    activity.stopService(new Intent(activity, LocationService.class));
+                }
+
+
+                //
+
+                //STRegion region = new STRegion(new STPoint(1f,1f,1f), new STPoint(2f,2f,2f));
+                //mListener.createPlace(region.toString());
+            }
+        });
+
         return view;
     }
 
@@ -113,6 +137,8 @@ public class SettingsFragment extends Fragment
 
     public interface OnFragmentInteractionListener {
         public void notifyTracking(boolean nStatus);
+
+        public void createPlace(String regionAsString);
     }
 
 }

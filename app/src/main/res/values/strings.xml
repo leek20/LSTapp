@@ -5,8 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="action_places">Places</string>
     <string name="app_name">LSTApp</string>
-    <string name="okay">Okay</string>
-    <string name="cancel">Cancel</string>
+    <string name="label_undo">Undo Pin</string>
+    <string name="label_query">Query All</string>
     <string name="dialog_location_title">Location Title:</string>
 
     <string-array name="mode_choices">
