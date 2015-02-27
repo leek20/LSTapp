@@ -1710,7 +1710,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f090042;
         public static final int action_mode_bar_stub=0x7f090041;
         public static final int action_mode_close_button=0x7f090034;
-        public static final int action_settings=0x7f09006d;
+        public static final int action_settings=0x7f090070;
         public static final int activity_chooser_view_content=0x7f090035;
         public static final int adjust_height=0x7f09000e;
         public static final int adjust_width=0x7f09000d;
@@ -1719,6 +1719,9 @@ containing a value of this type.
         public static final int book_now=0x7f090024;
         public static final int button_camera=0x7f090058;
         public static final int button_create=0x7f09005b;
+        public static final int button_drop_pin=0x7f09006c;
+        public static final int button_group=0x7f09006b;
+        public static final int button_query=0x7f09006a;
         public static final int button_storage=0x7f090059;
         public static final int buyButton=0x7f09001f;
         public static final int buy_now=0x7f090023;
@@ -1728,7 +1731,7 @@ containing a value of this type.
         public static final int classic=0x7f090026;
         public static final int collapseActionView=0x7f090016;
         public static final int container=0x7f090053;
-        public static final int coverage=0x7f09006b;
+        public static final int coverage=0x7f09006e;
         public static final int decor_content_parent=0x7f090043;
         public static final int default_activity_button=0x7f090038;
         public static final int dialog=0x7f090017;
@@ -1752,15 +1755,14 @@ containing a value of this type.
         public static final int listMode=0x7f090001;
         public static final int list_item=0x7f090039;
         public static final int location_dialog=0x7f090062;
-        public static final int map_radio_group=0x7f090068;
+        public static final int lower_group=0x7f090068;
         public static final int mapview=0x7f090067;
-        public static final int marker_mode_button=0x7f090069;
         public static final int match_parent=0x7f090021;
         public static final int middle=0x7f09000b;
         public static final int mode_spinner=0x7f09005e;
         public static final int mode_title=0x7f09005d;
         public static final int monochrome=0x7f090028;
-        public static final int name=0x7f09006c;
+        public static final int name=0x7f09006f;
         public static final int never=0x7f090012;
         public static final int newplace=0x7f090061;
         public static final int none=0x7f090003;
@@ -1768,7 +1770,7 @@ containing a value of this type.
         public static final int place_list_view=0x7f09005c;
         public static final int place_poster=0x7f090056;
         public static final int place_title=0x7f090054;
-        public static final int poster=0x7f09006a;
+        public static final int poster=0x7f09006d;
         public static final int production=0x7f09001c;
         public static final int progress_circular=0x7f09002e;
         public static final int progress_horizontal=0x7f09002f;
@@ -1803,6 +1805,7 @@ containing a value of this type.
         public static final int tracking_button=0x7f090060;
         public static final int tracking_title=0x7f09005f;
         public static final int up=0x7f090031;
+        public static final int upper_group=0x7f090069;
         public static final int useLogo=0x7f090004;
         public static final int withText=0x7f090015;
         public static final int wrap_content=0x7f090019;

@@ -87,10 +87,12 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
         mMapView.getController().setZoom(12);
         mMapView.getController().setCenter(defLoc);
 
-        ToggleButton tb = (ToggleButton) V.findViewById(R.id.marker_mode_button);
-        tb.setOnClickListener(new OnClickListener () {public void onClick(View v) {
-            markerMode = !markerMode;
-        }});
+        //ToggleButton tb = (ToggleButton) V.findViewById(R.id.marker_mode_button);
+        //tb.setOnClickListener(new OnClickListener () {public void onClick(View v) {
+
+           // markerMode = !markerMode;
+        //}});
+        markerMode = true;
 
         MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(getActivity(), this);
         mMapView.getOverlays().add(0, mapEventsOverlay);
@@ -107,11 +109,11 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
     public boolean singleTapConfirmedHelper(GeoPoint p) {//related to mapeventsoverlay interface
         //Toast.makeText(getActivity(), "Tapped", Toast.LENGTH_SHORT).show();
         if(markerMode){
-            final GeoPoint q = p;
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View view = inflater.inflate(R.layout.location_name_dialog, null);
-            final EditText mEdit = (EditText) view.findViewById(R.id.location_dialog);
+            //final GeoPoint q = p;
+            //AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            //LayoutInflater inflater = getActivity().getLayoutInflater();
+            View view = getView();//inflater.inflate(R.layout.location_name_dialog, null);
+            //final EditText mEdit = (EditText) view.findViewById(R.id.location_dialog);
             final SeekBar sbL = (SeekBar) view.findViewById(R.id.seek_lower);
             final SeekBar sbU = (SeekBar) view.findViewById(R.id.seek_upper);
 //            sbL.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -125,16 +127,16 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
 //
 //                }
 //            });
-            builder.setView(view)
-                    .setTitle(R.string.dialog_location_title)
-                    .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
+//            builder.setView(view)
+//                    .setTitle(R.string.dialog_location_title)
+//                    .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int id) {
                             //String str = "PASS: " + q.getLongitude() + " str: " + mEdit.getText();
                             //Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
 
                             Polygon rect = new Polygon(getActivity());
-                            rect.setPoints(Polygon.pointsAsRect(q, 2000.0, 2000.0));
+                            rect.setPoints(Polygon.pointsAsRect(p, 2000.0, 2000.0));
                             rect.setFillColor(0x12121212);
                             rect.setStrokeColor(Color.RED);
                             rect.setStrokeWidth(2);
@@ -144,25 +146,25 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
                             Marker startMarker = new Marker(mMapView);
                             int lProgress = sbL.getProgress();
                             int uProgress = sbU.getProgress();
-                            String label = mEdit.getText().toString();
+                            //String label = mEdit.getText().toString();
                             //TODO: this is where you would add a call to add the location to the places tab
                             mMarkers.add(startMarker);
-                            startMarker.setPosition(q);
+                            startMarker.setPosition(p);
                             startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
 //                            startMarker.setInfoWindow(new MarkerInfoWindow(R.layout.bonuspack_bubble, mMapView));
                             mMapView.getOverlays().add(startMarker);
 
                             mMapView.invalidate();//force redraw
-                        }
-                    })
-                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-
-                        }
-                    });
-            AlertDialog dialog = builder.create();
-            dialog.show();
+//                        }
+//                    })
+//                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int id) {
+//
+//                        }
+//                    });
+//            AlertDialog dialog = builder.create();
+//            dialog.show();
 
         }
         return true;

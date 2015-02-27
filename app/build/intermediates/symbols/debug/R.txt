@@ -446,7 +446,7 @@ int id action_menu_presenter 0x7f09002c
 int id action_mode_bar 0x7f090042
 int id action_mode_bar_stub 0x7f090041
 int id action_mode_close_button 0x7f090034
-int id action_settings 0x7f09006d
+int id action_settings 0x7f090070
 int id activity_chooser_view_content 0x7f090035
 int id adjust_height 0x7f09000e
 int id adjust_width 0x7f09000d
@@ -455,6 +455,9 @@ int id beginning 0x7f09000a
 int id book_now 0x7f090024
 int id button_camera 0x7f090058
 int id button_create 0x7f09005b
+int id button_drop_pin 0x7f09006c
+int id button_group 0x7f09006b
+int id button_query 0x7f09006a
 int id button_storage 0x7f090059
 int id buyButton 0x7f09001f
 int id buy_now 0x7f090023
@@ -464,7 +467,7 @@ int id checkbox 0x7f09003d
 int id classic 0x7f090026
 int id collapseActionView 0x7f090016
 int id container 0x7f090053
-int id coverage 0x7f09006b
+int id coverage 0x7f09006e
 int id decor_content_parent 0x7f090043
 int id default_activity_button 0x7f090038
 int id dialog 0x7f090017
@@ -488,15 +491,14 @@ int id innerRelativeLayout 0x7f09005a
 int id listMode 0x7f090001
 int id list_item 0x7f090039
 int id location_dialog 0x7f090062
-int id map_radio_group 0x7f090068
+int id lower_group 0x7f090068
 int id mapview 0x7f090067
-int id marker_mode_button 0x7f090069
 int id match_parent 0x7f090021
 int id middle 0x7f09000b
 int id mode_spinner 0x7f09005e
 int id mode_title 0x7f09005d
 int id monochrome 0x7f090028
-int id name 0x7f09006c
+int id name 0x7f09006f
 int id never 0x7f090012
 int id newplace 0x7f090061
 int id none 0x7f090003
@@ -504,7 +506,7 @@ int id normal 0x7f090000
 int id place_list_view 0x7f09005c
 int id place_poster 0x7f090056
 int id place_title 0x7f090054
-int id poster 0x7f09006a
+int id poster 0x7f09006d
 int id production 0x7f09001c
 int id progress_circular 0x7f09002e
 int id progress_horizontal 0x7f09002f
@@ -539,6 +541,7 @@ int id title 0x7f09003b
 int id tracking_button 0x7f090060
 int id tracking_title 0x7f09005f
 int id up 0x7f090031
+int id upper_group 0x7f090069
 int id useLogo 0x7f090004
 int id withText 0x7f090015
 int id wrap_content 0x7f090019

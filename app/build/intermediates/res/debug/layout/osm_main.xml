@@ -1,30 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
     <org.osmdroid.views.MapView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
         android:id="@+id/mapview">
     </org.osmdroid.views.MapView>
-    <RadioGroup
-        android:id="@+id/map_radio_group"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:orientation="horizontal"
-        android:background="#00000000"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:id="@+id/lower_group">
+        <TextView
+            android:text="Lower: "
+            android:id="@+id/seek_lower_label"
+            android:textStyle="bold"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/mapview"
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"/>
+        <SeekBar android:max="48"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:id="@+id/seek_lower"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/seek_lower_label"/>
+    </RelativeLayout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/upper_group">
+        <SeekBar android:max="48"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:id="@+id/seek_upper"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/seek_upper_label"/>
+        <TextView
+            android:text="Upper: "
+            android:layout_height="match_parent"
+            android:id="@+id/seek_upper_label"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_above="@+id/button_query"
+            android:layout_alignParentLeft="true"/>
+    </RelativeLayout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="0dp"
         android:layout_alignParentBottom="true"
-        android:padding="4dp" >
-        <ToggleButton android:id="@+id/marker_mode_button"
+        android:id="@+id/button_group">
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:layout_weight="0"
-            android:textSize="14sp"
-            android:textOn="On"
-            android:textOff="Off"
-            android:checked="false" />
-    </RadioGroup>
-
-</RelativeLayout>
-<!-- From: file:/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/src/main/res/layout/osm_main.xml -->
+            android:text="New Button"
+            android:layout_toRightOf="@+id/button_query"
+            android:id="@+id/button_drop_pin"
+            android:layout_alignParentBottom="true"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/button_query"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+</LinearLayout>
+<!-- From: file:/Users/user/Documents/workspace/LSTapp/app/src/main/res/layout/osm_main.xml -->
