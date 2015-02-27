@@ -360,11 +360,19 @@ public class HomeActivity extends ActionBarActivity implements
                 return;
             int ind = ((MapFragment) mFragment).mMarkers.indexOf(pin); //markers and rectangles are indexed the same
             List<GeoPoint> bnds = ((MapFragment) mFragment).rectangles.get(ind).getPoints();
-            int i = 0;
-            i++;
-            //STPoint b = new STPoint(pin.getLongitude() -);
+            GeoPoint min = bnds.get(0);
+            GeoPoint max = bnds.get(0);
+            for(GeoPoint pt : bnds){
+                if(pt.getLongitude() > max.getLongitude() || pt.getLatitude() > max.getLatitude())
+                    max = pt;
+                if(pt.getLongitude() < max.getLongitude() || pt.getLatitude() < max.getLatitude())
+                    min = pt;
+            }
 
-            //STRegion bnds = STRegion(b, e);
+            STPoint b = new STPoint((float)min.getLongitude(), (float)min.getLatitude());
+            STPoint e = new STPoint((float)max.getLongitude(), (float)max.getLatitude());
+            String qRegion = (new STRegion(b, e)).toString();
+            createPlace(qRegion);
         }
     }
 
