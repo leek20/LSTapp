@@ -335,7 +335,7 @@ public class HomeActivity extends ActionBarActivity implements
 
     public void undoSelection(View view) {
         // Do something in response to button
-        Toast.makeText(this, "Undo pin stub~~", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Undo pin stub~~", Toast.LENGTH_SHORT).show();
         Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
         if(mFragment != null)
             ((MapFragment) mFragment).undoLastPin();

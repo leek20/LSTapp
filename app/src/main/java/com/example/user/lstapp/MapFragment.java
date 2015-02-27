@@ -161,6 +161,8 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
         if(len > 0){
             Marker last = mMarkers.remove(len - 1);
             last.remove(mMapView);
+            Polygon lSquare = rectangles.remove(len - 1);
+            mMapView.getOverlays().remove(lSquare);
             mMapView.invalidate();
         }
     }
