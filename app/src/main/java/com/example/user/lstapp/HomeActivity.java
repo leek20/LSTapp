@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.example.nathanielwendt.lstrtree.SQLiteRTree;
@@ -23,6 +24,11 @@ import com.google.android.gms.location.LocationServices;
 import com.ut.mpc.utils.LSTFilter;
 import com.ut.mpc.utils.STPoint;
 import com.ut.mpc.utils.STRegion;
+
+import org.osmdroid.bonuspack.overlays.Marker;
+import org.osmdroid.util.GeoPoint;
+
+import java.util.ArrayList;
 
 
 public class HomeActivity extends ActionBarActivity implements
@@ -331,10 +337,28 @@ public class HomeActivity extends ActionBarActivity implements
     public void queryPins(View view) {
         // Do something in response to button
         Toast.makeText(this, "Query Timeeeeee~~", Toast.LENGTH_SHORT).show();
+        View lGroup = this.findViewById(R.id.lower_group);
+        View uGroup = this.findViewById(R.id.upper_group);
+        if (lGroup != null && uGroup != null) {
+            SeekBar lSeek = (SeekBar) lGroup.findViewById(R.id.seek_lower);
+            SeekBar uSeek = (SeekBar) uGroup.findViewById(R.id.seek_upper);
+            int lTimeBnd = lSeek.getProgress();
+            int uTimeBnd = lSeek.getProgress();
+            MapFragment mFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag("Map");
+            ArrayList<Marker> ptsOfInterest = mFragment.mMarkers;
+        }
+    }
+
+    public void confirmPin(View view) {
+        // Do something in response to button
+        Toast.makeText(this, "Drop the pin", Toast.LENGTH_SHORT).show();
+        Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
+        if(mFragment != null) {
+            GeoPoint pin = ((MapFragment) mFragment).confirmPinDropped();
+        }
     }
 
     public void undoSelection(View view) {
-        // Do something in response to button
         //Toast.makeText(this, "Undo pin stub~~", Toast.LENGTH_SHORT).show();
         Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
         if(mFragment != null)

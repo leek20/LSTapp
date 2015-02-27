@@ -1721,8 +1721,9 @@ containing a value of this type.
         public static final int button_create=0x7f09005b;
         public static final int button_group=0x7f09006b;
         public static final int button_query=0x7f09006a;
+        public static final int button_set_pin=0x7f09006d;
         public static final int button_storage=0x7f090059;
-        public static final int button_undo=0x7f09006d;
+        public static final int button_undo=0x7f09006c;
         public static final int buyButton=0x7f09001f;
         public static final int buy_now=0x7f090023;
         public static final int buy_with_google=0x7f090022;
@@ -1807,7 +1808,6 @@ containing a value of this type.
         public static final int up=0x7f090031;
         public static final int upper_group=0x7f090069;
         public static final int useLogo=0x7f090004;
-        public static final int view=0x7f09006c;
         public static final int withText=0x7f090015;
         public static final int wrap_content=0x7f090019;
     }

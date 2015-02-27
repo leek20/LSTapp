@@ -457,8 +457,9 @@ int id button_camera 0x7f090058
 int id button_create 0x7f09005b
 int id button_group 0x7f09006b
 int id button_query 0x7f09006a
+int id button_set_pin 0x7f09006d
 int id button_storage 0x7f090059
-int id button_undo 0x7f09006d
+int id button_undo 0x7f09006c
 int id buyButton 0x7f09001f
 int id buy_now 0x7f090023
 int id buy_with_google 0x7f090022
@@ -543,7 +544,6 @@ int id tracking_title 0x7f09005f
 int id up 0x7f090031
 int id upper_group 0x7f090069
 int id useLogo 0x7f090004
-int id view 0x7f09006c
 int id withText 0x7f090015
 int id wrap_content 0x7f090019
 int integer abc_max_action_buttons 0x7f0b0000

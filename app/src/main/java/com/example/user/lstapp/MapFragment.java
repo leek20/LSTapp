@@ -39,8 +39,10 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
     private ItemizedOverlay<OverlayItem> myLocationOverlay;
     ArrayList<Polygon> rectangles; //I don't think we need this?
 
-    ArrayList<Marker> mMarkers;
+    public ArrayList<Marker> mMarkers;
     private static GeoPoint defLoc = null;
+    private static GeoPoint nLocation = null; //associated w/nLocationDrop
+    private boolean nLocationDrop = false; //ensures only one location drop
     private static boolean markerMode; //if true allow insertion of new markers onto the map
 
     private OnMarkerClickListener mListener;
@@ -82,21 +84,9 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
         mMapView.getController().setZoom(12);
         mMapView.getController().setCenter(defLoc);
 
-        //ToggleButton tb = (ToggleButton) V.findViewById(R.id.marker_mode_button);
-        //tb.setOnClickListener(new OnClickListener () {public void onClick(View v) {
-
-           // markerMode = !markerMode;
-        //}});
-        markerMode = true;
-
         MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(getActivity(), this);
         mMapView.getOverlays().add(0, mapEventsOverlay);
 
-        //overlays = new ArrayList<OverlayItem>();
-        //overlays.add(new OverlayItem("New Overlay", "Overlay Description", defLoc));
-        //this.myLocationOverlay = new ItemizedIconOverlay<OverlayItem>(overlays, null, mResourceProxy);
-        //this.mMapView.getOverlays().add(this.myLocationOverlay);
-        //mMapView.invalidate();//force redraw
         return V;
     }
 
@@ -104,35 +94,29 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
     @Override
     public boolean singleTapConfirmedHelper(GeoPoint p) {//related to mapeventsoverlay interface
         //Toast.makeText(getActivity(), "Tapped", Toast.LENGTH_SHORT).show();
-        if(markerMode){
-            //final GeoPoint q = p;
-            //AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            //LayoutInflater inflater = getActivity().getLayoutInflater();
-            View view = getView();//inflater.inflate(R.layout.location_name_dialog, null);
-            //final EditText mEdit = (EditText) view.findViewById(R.id.location_dialog);
-            final SeekBar sbL = (SeekBar) view.findViewById(R.id.seek_lower);
-            final SeekBar sbU = (SeekBar) view.findViewById(R.id.seek_upper);
-            Polygon rect = new Polygon(getActivity());
-            rect.setPoints(Polygon.pointsAsRect(p, 2000.0, 2000.0));
-            rect.setFillColor(0x12121212);
-            rect.setStrokeColor(Color.RED);
-            rect.setStrokeWidth(2);
-            rectangles.add(rect);//oh the irony
-            mMapView.getOverlays().add(rect);
+        if(nLocationDrop)
+            return true;
+        View view = getView();
 
-            Marker startMarker = new Marker(mMapView);
-            int lProgress = sbL.getProgress();
-            int uProgress = sbU.getProgress();
-            //TODO: this is where you would add a call to add the location to the places tab
-            mMarkers.add(startMarker);
-            startMarker.setPosition(p);
-            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-//                            startMarker.setInfoWindow(new MarkerInfoWindow(R.layout.bonuspack_bubble, mMapView));
-            mMapView.getOverlays().add(startMarker);
+        Polygon rect = new Polygon(getActivity());
+        rect.setPoints(Polygon.pointsAsRect(p, 2000.0, 2000.0));
+        rect.setFillColor(0x12121212);
+        rect.setStrokeColor(Color.RED);
+        rect.setStrokeWidth(2);
+        rectangles.add(rect);
+        mMapView.getOverlays().add(rect);
 
-            mMapView.invalidate();//force redraw
+        Marker startMarker = new Marker(mMapView);
+        //TODO: this is where you would add a call to add the location to the places tab
 
-        }
+        mMarkers.add(startMarker);
+        startMarker.setPosition(p);
+        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        mMapView.getOverlays().add(startMarker);
+
+        mMapView.invalidate();//force redraw
+        nLocation = p;
+        nLocationDrop = true;
         return true;
     }
 
@@ -157,6 +141,8 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
     }
 
     public void undoLastPin(){
+        if(!nLocationDrop)
+            return;
         int len = mMarkers.size();
         if(len > 0){
             Marker last = mMarkers.remove(len - 1);
@@ -165,6 +151,12 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
             mMapView.getOverlays().remove(lSquare);
             mMapView.invalidate();
         }
+        nLocationDrop = false;
+    }
+
+    public GeoPoint confirmPinDropped(){
+        nLocationDrop = false;
+        return nLocation;
     }
 
     public interface mapFragListener {
