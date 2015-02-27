@@ -37,11 +37,11 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
     protected ResourceProxy mResourceProxy;
     private MapController mapController;
     private ItemizedOverlay<OverlayItem> myLocationOverlay;
-    ArrayList<Polygon> rectangles; //I don't think we need this?
+    public ArrayList<Polygon> rectangles; //I don't think we need this?
 
     public ArrayList<Marker> mMarkers;
     private static GeoPoint defLoc = null;
-    private static GeoPoint nLocation = null; //associated w/nLocationDrop
+    private static Marker nLocation = null; //associated w/nLocationDrop
     private boolean nLocationDrop = false; //ensures only one location drop
     private static boolean markerMode; //if true allow insertion of new markers onto the map
 
@@ -115,7 +115,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
         mMapView.getOverlays().add(startMarker);
 
         mMapView.invalidate();//force redraw
-        nLocation = p;
+        nLocation = startMarker;
         nLocationDrop = true;
         return true;
     }
@@ -154,7 +154,9 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
         nLocationDrop = false;
     }
 
-    public GeoPoint confirmPinDropped(){
+    public Marker confirmPinDropped(){
+        if(!nLocationDrop)
+            return null;
         nLocationDrop = false;
         return nLocation;
     }

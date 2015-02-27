@@ -29,6 +29,7 @@ import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.util.GeoPoint;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class HomeActivity extends ActionBarActivity implements
@@ -354,7 +355,16 @@ public class HomeActivity extends ActionBarActivity implements
         Toast.makeText(this, "Drop the pin", Toast.LENGTH_SHORT).show();
         Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
         if(mFragment != null) {
-            GeoPoint pin = ((MapFragment) mFragment).confirmPinDropped();
+            Marker pin = ((MapFragment) mFragment).confirmPinDropped();
+            if(pin == null)
+                return;
+            int ind = ((MapFragment) mFragment).mMarkers.indexOf(pin); //markers and rectangles are indexed the same
+            List<GeoPoint> bnds = ((MapFragment) mFragment).rectangles.get(ind).getPoints();
+
+            //NOTE: by default I've set the bounds of the rectangle to be 2000 x 2000 in meters
+            //STPoint b = new STPoint(pin.getLongitude() -);
+
+            //STRegion bnds = STRegion(b, e);
         }
     }
 

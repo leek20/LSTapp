@@ -78,7 +78,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Set/Drop/Confirm Pin"
+            android:text="Set/Confirm Pin"
             android:id="@+id/button_set_pin"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
