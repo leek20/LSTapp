@@ -100,6 +100,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
         return V;
     }
 
+
     @Override
     public boolean singleTapConfirmedHelper(GeoPoint p) {//related to mapeventsoverlay interface
         //Toast.makeText(getActivity(), "Tapped", Toast.LENGTH_SHORT).show();
@@ -111,54 +112,25 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
             //final EditText mEdit = (EditText) view.findViewById(R.id.location_dialog);
             final SeekBar sbL = (SeekBar) view.findViewById(R.id.seek_lower);
             final SeekBar sbU = (SeekBar) view.findViewById(R.id.seek_upper);
-//            sbL.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-//                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
-//                    //Do something here with new value
-//                }
-//                public void onStartTrackingTouch(SeekBar seekBar){
-//
-//                }
-//                public void onStopTrackingTouch(SeekBar seekBar){
-//
-//                }
-//            });
-//            builder.setView(view)
-//                    .setTitle(R.string.dialog_location_title)
-//                    .setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int id) {
-                            //String str = "PASS: " + q.getLongitude() + " str: " + mEdit.getText();
-                            //Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+            Polygon rect = new Polygon(getActivity());
+            rect.setPoints(Polygon.pointsAsRect(p, 2000.0, 2000.0));
+            rect.setFillColor(0x12121212);
+            rect.setStrokeColor(Color.RED);
+            rect.setStrokeWidth(2);
+            rectangles.add(rect);//oh the irony
+            mMapView.getOverlays().add(rect);
 
-                            Polygon rect = new Polygon(getActivity());
-                            rect.setPoints(Polygon.pointsAsRect(p, 2000.0, 2000.0));
-                            rect.setFillColor(0x12121212);
-                            rect.setStrokeColor(Color.RED);
-                            rect.setStrokeWidth(2);
-                            rectangles.add(rect);//oh the irony
-                            mMapView.getOverlays().add(rect);
-
-                            Marker startMarker = new Marker(mMapView);
-                            int lProgress = sbL.getProgress();
-                            int uProgress = sbU.getProgress();
-                            //TODO: this is where you would add a call to add the location to the places tab
-                            mMarkers.add(startMarker);
-                            startMarker.setPosition(p);
-                            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            Marker startMarker = new Marker(mMapView);
+            int lProgress = sbL.getProgress();
+            int uProgress = sbU.getProgress();
+            //TODO: this is where you would add a call to add the location to the places tab
+            mMarkers.add(startMarker);
+            startMarker.setPosition(p);
+            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
 //                            startMarker.setInfoWindow(new MarkerInfoWindow(R.layout.bonuspack_bubble, mMapView));
-                            mMapView.getOverlays().add(startMarker);
+            mMapView.getOverlays().add(startMarker);
 
-                            mMapView.invalidate();//force redraw
-//                        }
-//                    })
-//                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int id) {
-//
-//                        }
-//                    });
-//            AlertDialog dialog = builder.create();
-//            dialog.show();
+            mMapView.invalidate();//force redraw
 
         }
         return true;
@@ -182,6 +154,15 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
         double ret = testArr[testI];
         testI = (testI + 1) % testArr.length;
         return ret;
+    }
+
+    public void undoLastPin(){
+        int len = mMarkers.size();
+        if(len > 0){
+            Marker last = mMarkers.remove(len - 1);
+            last.remove(mMapView);
+            mMapView.invalidate();
+        }
     }
 
     public interface mapFragListener {

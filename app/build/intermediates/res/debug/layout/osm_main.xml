@@ -79,7 +79,8 @@
             android:id="@+id/button_undo"
             android:layout_toRightOf="@+id/view"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:onClick="undoSelection"/>
     </RelativeLayout>
 </LinearLayout>
 <!-- From: file:/Users/user/Documents/workspace/LSTapp/app/src/main/res/layout/osm_main.xml -->
