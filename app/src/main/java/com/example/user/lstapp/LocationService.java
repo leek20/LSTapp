@@ -158,7 +158,7 @@ public class LocationService extends Service implements
         STPoint currPoint = new STPoint((float) l.getLongitude(),
                 (float) l.getLatitude(), System.currentTimeMillis());
         buffer.add(currPoint);
-        if(buffer.size() > BUFFER_SIZE){
+        if(buffer.size() >= BUFFER_SIZE){
             Log.d("LST", "clearing buffer and loading to filter");
             SQLiteRTree rtree = new SQLiteRTree(this, "RTreeMain");
             LSTFilter filter = new LSTFilter(rtree);

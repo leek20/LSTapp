@@ -1,7 +1,5 @@
 package com.ut.mpc.utils;
 
-import com.ut.mpc.setup.Constants;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -277,9 +275,9 @@ public class LSTFilter {
 	
 	private void smartInsert(STPoint point) {
 		double pok = this.pointPoK(point);
-		if(pok <= Constants.SmartInsert.INS_THRESH){
+		//if(pok <= Constants.SmartInsert.INS_THRESH){
 			this.stdInsert(point);
-		}
+		//}
 	}
 
 	private void stdInsert(STPoint point) {
