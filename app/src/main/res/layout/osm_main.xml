@@ -53,7 +53,7 @@
             android:layout_alignParentLeft="true"/>
     </RelativeLayout>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_weight="1"
         android:layout_height="0dp"
         android:layout_alignParentBottom="true"
@@ -61,15 +61,23 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:layout_toRightOf="@+id/button_query"
-            android:id="@+id/button_drop_pin"
+            android:text="Query All"
+            android:id="@+id/button_query"
+            android:layout_toLeftOf="@+id/view"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"/>
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_centerHorizontal="true" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button_query"
+            android:text="Undo Pin"
+            android:id="@+id/button_undo"
+            android:layout_toRightOf="@+id/view"
+            android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 </LinearLayout>
