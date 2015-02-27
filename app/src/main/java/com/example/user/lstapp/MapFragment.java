@@ -133,13 +133,13 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
                             //String str = "PASS: " + q.getLongitude() + " str: " + mEdit.getText();
                             //Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
 
-                            Polygon circle = new Polygon(getActivity());
-                            circle.setPoints(Polygon.pointsAsRect(q, 2000.0, 2000.0));
-                            circle.setFillColor(0x12121212);
-                            circle.setStrokeColor(Color.RED);
-                            circle.setStrokeWidth(2);
-                            rectangles.add(circle);//oh the irony
-                            mMapView.getOverlays().add(circle);
+                            Polygon rect = new Polygon(getActivity());
+                            rect.setPoints(Polygon.pointsAsRect(q, 2000.0, 2000.0));
+                            rect.setFillColor(0x12121212);
+                            rect.setStrokeColor(Color.RED);
+                            rect.setStrokeWidth(2);
+                            rectangles.add(rect);//oh the irony
+                            mMapView.getOverlays().add(rect);
 
                             Marker startMarker = new Marker(mMapView);
                             int lProgress = sbL.getProgress();
