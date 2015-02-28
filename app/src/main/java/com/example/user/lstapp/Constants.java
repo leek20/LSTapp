@@ -33,4 +33,7 @@ public class Constants {
     public static final String stdPokLabel = "Standard Viewing";
     public static final String lowPoKLabel = "Quick Sighting";
     public static final String noPoKLabel = "Undiscovered";
+
+    public static final String APP_TITLE = "MyTourist";
+    public static final String APP_TITLE_TRACKING = APP_TITLE + " (tracking)";
 }

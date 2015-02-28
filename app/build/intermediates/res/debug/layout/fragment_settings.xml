@@ -55,10 +55,4 @@
             android:layout_weight="1"/>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/newplace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="new place"/>
 </LinearLayout><!-- From: file:/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/src/main/res/layout/fragment_settings.xml -->

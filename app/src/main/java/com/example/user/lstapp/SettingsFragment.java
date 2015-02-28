@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.ToggleButton;
@@ -28,8 +27,6 @@ public class SettingsFragment extends Fragment
 
     private OnFragmentInteractionListener mListener;
 
-    private static boolean mTracking = false;
-    private static boolean onTracking = false;
     private static int mMode = 0;
 
     public static SettingsFragment newInstance() {
@@ -71,29 +68,13 @@ public class SettingsFragment extends Fragment
         ToggleButton toggle = (ToggleButton) view.findViewById(R.id.tracking_button);
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //this.mTracking = isChecked;
-                mListener.notifyTracking(isChecked);
-            }
-        });
-
-        Button newPlace = (Button) view.findViewById(R.id.newplace);
-        newPlace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 Activity activity = (HomeActivity) getActivity();
-                if(onTracking){
-                    onTracking = false;
+                if(isChecked){
                     activity.startService(new Intent(activity, LocationService.class));
                 } else {
-                    onTracking = true;
                     activity.stopService(new Intent(activity, LocationService.class));
                 }
-
-
-                //
-
-                //STRegion region = new STRegion(new STPoint(1f,1f,1f), new STPoint(2f,2f,2f));
-                //mListener.createPlace(region.toString());
+                mListener.notifyTracking(isChecked);
             }
         });
 
