@@ -90,6 +90,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
         return V;
     }
 
+    static int iii = 0;
 
     @Override
     public boolean singleTapConfirmedHelper(GeoPoint p) {//related to mapeventsoverlay interface
@@ -100,8 +101,18 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
 
         Polygon rect = new Polygon(getActivity());
         rect.setPoints(Polygon.pointsAsRect(p, 2000.0, 2000.0));
-        rect.setFillColor(0x12121212);
-        rect.setStrokeColor(Color.RED);
+        if(iii == 0) {
+            drawQueryResult(rect, 0.0, false);
+        } else if (iii == 1){
+            drawQueryResult(rect, .15, false);
+        } else if (iii == 2){
+            drawQueryResult(rect, .3, false);
+        } else if (iii == 3){
+            drawQueryResult(rect, .6, false);
+        } else{
+            drawQueryResult(rect, .9, false);
+        }
+        iii++;
         rect.setStrokeWidth(2);
         rectangles.add(rect);
         mMapView.getOverlays().add(rect);
@@ -168,8 +179,34 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
     public void drawQueryResult(Polygon area, Double pok, boolean invalidate){
         int fill = 0;
         int stroke = 0;
+        if(pok < Constants.lowPoKThresh){
+            fill = Color.TRANSPARENT;
+            stroke = Color.TRANSPARENT;
+        } else if(pok < Constants.stdPoKThresh){//blue
+            stroke = transformColor(Constants.outlineC[0]);
+            fill = transformColor(Constants.fillC[0]);
+        } else if(pok < Constants.mediumPoKThresh){//green
+            stroke = transformColor(Constants.outlineC[1]);
+            fill = transformColor(Constants.fillC[1]);
+        } else if(pok < Constants.highPoKThresh){//yellow
+            stroke = transformColor(Constants.outlineC[2]);
+            fill = transformColor(Constants.fillC[2]);
+        } else{//red
+            stroke = transformColor(Constants.outlineC[3]);
+            fill = transformColor(Constants.fillC[3]);
+        }
+
+        area.setStrokeColor(stroke);
+        area.setFillColor(fill);
+
         if(invalidate)
             mMapView.invalidate();
+    }
+
+    private int transformColor(int[] arr){
+        //(alpha << 24) | (red << 16) | (green << 8) | blue
+        int color = (arr[0] << 24) | (arr[1] << 16) | (arr[2] << 8) | arr[3];
+        return color;
     }
 
     public interface mapFragListener {

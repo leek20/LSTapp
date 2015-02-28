@@ -10,18 +10,15 @@ public class Constants {
     public static int[][] outlineC = {
             {255, 3, 74, 98}, //blue
             {255, 60, 104, 0}, //green
-            {255, 152, 28, 137} //purple
+            {255, 207, 117, 7},//orange
+            {255, 186, 14, 18} //red
     };
     public static int[][] fillC = {
             {127, 43, 129, 157}, //blue
             {127, 83, 144, 0}, //green
-            {127, 188, 88, 176} //purple
+            {127, 255, 159, 42},//orange
+            {127, 251, 79, 83} //red
     };
-
-    public static int[] l2_f = {127, 188, 88, 176};
-
-    public static double l0_cuttoff = .25;
-    public static double l1_cuttoff = .75;
 
     public static final int LOC_POLLING_INTERVAL = 1000 * 10; // ms
     public static final int LOC_FASTEST_INTERVAL = 1000; // ms
