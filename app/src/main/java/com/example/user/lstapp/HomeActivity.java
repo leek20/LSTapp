@@ -363,9 +363,10 @@ public class HomeActivity extends ActionBarActivity implements
             GeoPoint min = bnds.get(0);
             GeoPoint max = bnds.get(0);
             for(GeoPoint pt : bnds){
+                GeoPoint d = pt;
                 if(pt.getLongitude() > max.getLongitude() || pt.getLatitude() > max.getLatitude())
                     max = pt;
-                if(pt.getLongitude() < max.getLongitude() || pt.getLatitude() < max.getLatitude())
+                if(pt.getLongitude() < min.getLongitude() || pt.getLatitude() < min.getLatitude())
                     min = pt;
             }
 
