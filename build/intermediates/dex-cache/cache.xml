@@ -2,74 +2,74 @@
 <items version="2" >
 
     <item
-        jar="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-99b04e9293f7bc3c3ff15c1468a2916860a5da6a.jar" />
-    </item>
-    <item
-        jar="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
-        <dex dex="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/pre-dexed/debug/classes-3ecdc06f1e9db700e9e1127ecd27832e51ef8a8a.jar" />
-    </item>
-    <item
-        jar="/Users/user/.gradle/caches/modules-2/files-2.1/log4j/log4j/1.2.17/5af35056b4d257e4b64b9e8069c0746e8b08629f/log4j-1.2.17.jar"
+        jar="/Users/nathanielwendt/.gradle/caches/modules-2/files-2.1/log4j/log4j/1.2.17/5af35056b4d257e4b64b9e8069c0746e8b08629f/log4j-1.2.17.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="5af35056b4d257e4b64b9e8069c0746e8b08629f">
-        <dex dex="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/pre-dexed/debug/log4j-1.2.17-e8700c784334ed5051b746af2e3078d4a614a207.jar" />
+        <dex dex="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/pre-dexed/debug/log4j-1.2.17-b8c06465d1e673358be6e96bebfeeb3bc1b104bd.jar" />
     </item>
     <item
-        jar="/Users/user/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-fd128a8bc60722ca18875b3d9d361b4bbbbfddce.jar" />
-    </item>
-    <item
-        jar="/Users/user/.gradle/caches/modules-2/files-2.1/org.osmdroid/osmdroid-android/4.3/2fcf7bc3cb27daa6e67c8990ea418d19f6b5b296/osmdroid-android-4.3.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="2fcf7bc3cb27daa6e67c8990ea418d19f6b5b296">
-        <dex dex="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/pre-dexed/debug/osmdroid-android-4.3-15fa4219658b7c28698dfdf4dd1008f57cacc481.jar" />
-    </item>
-    <item
-        jar="/Users/user/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.10/5b338f206827d88acd890739f400a9b7664e5984/slf4j-api-1.7.10.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="5b338f206827d88acd890739f400a9b7664e5984">
-        <dex dex="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/pre-dexed/debug/slf4j-api-1.7.10-6c5f2f38248c794430093a9871175d5bb3b487c2.jar" />
-    </item>
-    <item
-        jar="/Users/user/Documents/workspace/LSTapp/app/libs/osmbonuspack_v5.1.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="6056a0c43cd37168d2bbcc0bdac23b9b8c5452f2">
-        <dex dex="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/pre-dexed/debug/osmbonuspack_v5.1-0670675345ebfe4c69385c795fba5b2b1a0de29f.jar" />
-    </item>
-    <item
-        jar="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/pre-dexed/debug/classes-94ee9075b5aef835af88cc1abde4da30b8aabb02.jar" />
-    </item>
-    <item
-        jar="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
-        jumboMode="false"
-        revision="20.0.0"
-        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
-        <dex dex="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/pre-dexed/debug/classes-ec854a457e6bd3b19fa348c44bf8be5c96faaf49.jar" />
-    </item>
-    <item
-        jar="/Users/user/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-log4j12/1.7.10/b3eeae7d1765f988a1f45ea81517191315c69c9e/slf4j-log4j12-1.7.10.jar"
+        jar="/Users/nathanielwendt/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-log4j12/1.7.10/b3eeae7d1765f988a1f45ea81517191315c69c9e/slf4j-log4j12-1.7.10.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="b3eeae7d1765f988a1f45ea81517191315c69c9e">
-        <dex dex="/Users/user/Documents/workspace/LSTapp/app/build/intermediates/pre-dexed/debug/slf4j-log4j12-1.7.10-041443e9d7d8b7b7eb213c3c12d49ee343fd3394.jar" />
+        <dex dex="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/pre-dexed/debug/slf4j-log4j12-1.7.10-ba36b0033da211d011248dab9f8d28fb635519da.jar" />
+    </item>
+    <item
+        jar="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/pre-dexed/debug/classes-bfa74a14bbcf73477e50397e69992469ffaf015c.jar" />
+    </item>
+    <item
+        jar="/usr/local/Cellar/android-sdk/22.6.2/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-c1b23c7fab6cdab20d4fc4d1e71b54cc85013652.jar" />
+    </item>
+    <item
+        jar="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-e13f389862f47776571d8881633bec0a1bdee7ec.jar" />
+    </item>
+    <item
+        jar="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/exploded-aar/com.google.android.gms/play-services/6.5.87/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="dd9247ea0fabe8ee479638c4b4a23e93752be256">
+        <dex dex="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/pre-dexed/debug/classes-66adb39c57699ee0edee9c878e41170ec5292704.jar" />
+    </item>
+    <item
+        jar="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/libs/osmbonuspack_v5.1.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="6056a0c43cd37168d2bbcc0bdac23b9b8c5452f2">
+        <dex dex="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/pre-dexed/debug/osmbonuspack_v5.1-4920957ef77f1f8a22cf082503357a391f5dd3e0.jar" />
+    </item>
+    <item
+        jar="/Users/nathanielwendt/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.10/5b338f206827d88acd890739f400a9b7664e5984/slf4j-api-1.7.10.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="5b338f206827d88acd890739f400a9b7664e5984">
+        <dex dex="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/pre-dexed/debug/slf4j-api-1.7.10-e5994fbe875c70203b79c6ea2495f5181432c553.jar" />
+    </item>
+    <item
+        jar="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/pre-dexed/debug/classes-b3f096f32269fb6436388a41a90306a5d593a6cd.jar" />
+    </item>
+    <item
+        jar="/Users/nathanielwendt/.gradle/caches/modules-2/files-2.1/org.osmdroid/osmdroid-android/4.3/2fcf7bc3cb27daa6e67c8990ea418d19f6b5b296/osmdroid-android-4.3.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="2fcf7bc3cb27daa6e67c8990ea418d19f6b5b296">
+        <dex dex="/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/build/intermediates/pre-dexed/debug/osmdroid-android-4.3-860aca1dbae097658d7d02b389538ed7d5e9ef54.jar" />
     </item>
 
 </items>

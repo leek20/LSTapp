@@ -2,4 +2,4 @@
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
     android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context=".HomeActivity" tools:ignore="MergeRootFrame" />
-<!-- From: file:/Users/user/Documents/workspace/LSTapp/app/src/main/res/layout/activity_home.xml -->
+<!-- From: file:/Users/nathanielwendt/Documents/Texas/Research/LSTapp/app/src/main/res/layout/activity_home.xml -->
