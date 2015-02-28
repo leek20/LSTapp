@@ -16,7 +16,7 @@
         android:layout_height="0dp"
         android:id="@+id/lower_group">
         <TextView
-            android:text="Lower: "
+            android:text="Lower Time Bnd: "
             android:id="@+id/seek_lower_label"
             android:textStyle="bold"
             android:layout_height="match_parent"
@@ -43,7 +43,7 @@
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/seek_upper_label"/>
         <TextView
-            android:text="Upper: "
+            android:text="Upper Time Bnd: "
             android:layout_height="match_parent"
             android:id="@+id/seek_upper_label"
             android:textStyle="bold"
