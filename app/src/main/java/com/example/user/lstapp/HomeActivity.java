@@ -26,6 +26,7 @@ import com.ut.mpc.utils.STPoint;
 import com.ut.mpc.utils.STRegion;
 
 import org.osmdroid.bonuspack.overlays.Marker;
+import org.osmdroid.bonuspack.overlays.Polygon;
 import org.osmdroid.util.GeoPoint;
 
 import java.util.ArrayList;
@@ -350,11 +351,12 @@ public class HomeActivity extends ActionBarActivity implements
 
             ArrayList<Double> poks = new ArrayList<Double>();
             for(Polygon poly : areasOfInterest){
-                STRegion region = recToRegion(poly.getPoints());
+                STRegion region = rectToRegion(poly.getPoints());
                 double p = filter.windowPoK(region);
                 poks.add(p);
             }
             mFragment.drawAllQueryResults(poks);
+            //Toast.makeText(this, "Query Redraw Complete", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -372,7 +374,7 @@ public class HomeActivity extends ActionBarActivity implements
         }
     }
 
-    public STRegion rectToRegion(List<GeoPoint> bnds){
+    public STRegion rectToRegion(List<GeoPoint> bnds){//not actually sure what to do with time bounds/how to integrate them
         GeoPoint min = bnds.get(0);
         GeoPoint max = bnds.get(0);
         for(GeoPoint pt : bnds){
