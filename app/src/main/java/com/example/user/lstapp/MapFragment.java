@@ -165,6 +165,13 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
 
     }
 
+    public void drawQueryResult(Polygon area, Double pok, boolean invalidate){
+        int fill = 0;
+        int stroke = 0;
+        if(invalidate)
+            mMapView.invalidate();
+    }
+
     public interface mapFragListener {
         public void sendMapDefaultLocation(Location l);
     }
