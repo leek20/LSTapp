@@ -346,13 +346,20 @@ public class HomeActivity extends ActionBarActivity implements
             int lTimeBnd = lSeek.getProgress();
             int uTimeBnd = lSeek.getProgress();
             MapFragment mFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag("Map");
-            ArrayList<Marker> ptsOfInterest = mFragment.mMarkers;
+            ArrayList<Polygon> areasOfInterest = mFragment.rectangles;
+
+            ArrayList<Double> poks = new ArrayList<Double>();
+            for(Polygon poly : areasOfInterest){
+                STRegion region = recToRegion(poly.getPoints());
+                double p = filter.windowPoK(region);
+                poks.add(p);
+            }
+            mFragment.drawAllQueryResults(poks);
         }
     }
 
     public void confirmPin(View view) {
-        // Do something in response to button
-        Toast.makeText(this, "Drop the pin", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Drop the pin", Toast.LENGTH_SHORT).show();
         Fragment mFragment = getSupportFragmentManager().findFragmentByTag("Map");
         if(mFragment != null) {
             Marker pin = ((MapFragment) mFragment).confirmPinDropped();
@@ -360,21 +367,24 @@ public class HomeActivity extends ActionBarActivity implements
                 return;
             int ind = ((MapFragment) mFragment).mMarkers.indexOf(pin); //markers and rectangles are indexed the same
             List<GeoPoint> bnds = ((MapFragment) mFragment).rectangles.get(ind).getPoints();
-            GeoPoint min = bnds.get(0);
-            GeoPoint max = bnds.get(0);
-            for(GeoPoint pt : bnds){
-                GeoPoint d = pt;
-                if(pt.getLongitude() > max.getLongitude() || pt.getLatitude() > max.getLatitude())
-                    max = pt;
-                if(pt.getLongitude() < min.getLongitude() || pt.getLatitude() < min.getLatitude())
-                    min = pt;
-            }
-
-            STPoint b = new STPoint((float)min.getLongitude(), (float)min.getLatitude());
-            STPoint e = new STPoint((float)max.getLongitude(), (float)max.getLatitude());
-            String qRegion = (new STRegion(b, e)).toString();
+            String qRegion = rectToRegion(bnds).toString();
             createPlace(qRegion);
         }
+    }
+
+    public STRegion rectToRegion(List<GeoPoint> bnds){
+        GeoPoint min = bnds.get(0);
+        GeoPoint max = bnds.get(0);
+        for(GeoPoint pt : bnds){
+            if(pt.getLongitude() > max.getLongitude() || pt.getLatitude() > max.getLatitude())
+                max = pt;
+            if(pt.getLongitude() < min.getLongitude() || pt.getLatitude() < min.getLatitude())
+                min = pt;
+        }
+
+        STPoint b = new STPoint((float)min.getLongitude(), (float)min.getLatitude());
+        STPoint e = new STPoint((float)max.getLongitude(), (float)max.getLatitude());
+        return new STRegion(b, e);
     }
 
     public void undoSelection(View view) {

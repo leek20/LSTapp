@@ -161,6 +161,10 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
         return nLocation;
     }
 
+    public void drawAllQueryResults(ArrayList<Double> poks){
+
+    }
+
     public interface mapFragListener {
         public void sendMapDefaultLocation(Location l);
     }
