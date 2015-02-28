@@ -19,7 +19,7 @@ import java.util.List;
 public class PlaceDataAdapter extends ArrayAdapter<PlaceData> {
     private final Context context;
     private final List<PlaceData> places;
-    private PlaceFragment.OnFragmentInteractionListener mListener;
+    private PlacesFragment.OnFragmentInteractionListener mListener;
 
     @Override
     public int getCount() {
@@ -39,7 +39,7 @@ public class PlaceDataAdapter extends ArrayAdapter<PlaceData> {
         return position;
     }
 
-    public PlaceDataAdapter(Context context, PlaceFragment.OnFragmentInteractionListener mListener, List<PlaceData> places) {
+    public PlaceDataAdapter(Context context, PlacesFragment.OnFragmentInteractionListener mListener, List<PlaceData> places) {
         super(context, R.layout.place_list_item, places);
         this.context = context;
         this.places = places;

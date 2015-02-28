@@ -32,8 +32,8 @@ import java.util.List;
 
 public class HomeActivity extends ActionBarActivity implements
         SettingsFragment.OnFragmentInteractionListener, ActionBar.TabListener,
-        MapFragment.mapFragListener, PlacesFragment.PlacesFragmentInteractionListener,
-        CreatePlaceFragment.CreatePlaceFragmentDoneListener, PlaceFragment.OnFragmentInteractionListener {
+        MapFragment.mapFragListener, CreatePlaceFragment.CreatePlaceFragmentDoneListener,
+        PlacesFragment.OnFragmentInteractionListener {
 
     /**
      * Stores parameters for requests to the FusedLocationProviderApi.
@@ -41,6 +41,7 @@ public class HomeActivity extends ActionBarActivity implements
     protected double[] lastLatLong = new double[]{};
     private LSTFilter filter;
 
+    private final String CREATE_PLACE_FRAG_TAG = "CREATE_PLACE_FRAG";
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
     private static boolean mTracking = false;
 
@@ -110,7 +111,7 @@ public class HomeActivity extends ActionBarActivity implements
                 float[] location = {(float) lastLatLong[0], (float) lastLatLong[1]};
                 args.putFloatArray("init_location", location);
             } else{
-                mFragment = (Fragment) PlaceFragment.newInstance("", "");
+                mFragment = (Fragment) PlacesFragment.newInstance("", "");
                 //tag = "CREATEPLACE";
                 //mFragment = (Fragment) PlacesFragment.newInstance("placeholderParam1", "placeholderParam2");
             }
@@ -201,29 +202,31 @@ public class HomeActivity extends ActionBarActivity implements
 
     @Override
     public void createPlace(String regionAsString) {
-        Fragment oldFragment = getSupportFragmentManager().findFragmentByTag("Settings");
-
 //        SharedPreferences sharedpreferences = getSharedPreferences("Places", Context.MODE_PRIVATE);
 //        SharedPreferences.Editor editor = sharedpreferences.edit();
 //        editor.clear().commit();
-
-        Fragment mFragment = (Fragment) CreatePlaceFragment.newInstance(regionAsString);
-        FragmentTransaction f = getSupportFragmentManager().beginTransaction();
-        f.add(R.id.container, mFragment, "CREATEPLACE");
-        if (mFragment != null)
-            f.hide(oldFragment);
-        f.commit();
+        String mapTag = getResources().getString(R.string.action_map);
+        Fragment createPlaceFrag = (Fragment) CreatePlaceFragment.newInstance(regionAsString);
+        this.swapContainerFragment(createPlaceFrag, CREATE_PLACE_FRAG_TAG, mapTag);
+//
+//
+//        FragmentTransaction f = getSupportFragmentManager().beginTransaction();
+//        f.add(R.id.container, mFragment, "CREATEPLACE");
+//        if (mFragment != null)
+//            f.hide(oldFragment);
+//        f.commit();
     }
 
     @Override
     public void onFragmentDone() {
         Log.d("LST", "fragment is done from picture");
 
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag("CREATEPLACE");
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(CREATE_PLACE_FRAG_TAG);
         if(fragment != null)
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
 
-        Fragment oldFragment = getSupportFragmentManager().findFragmentByTag("Settings");
+        String mapTag = getResources().getString(R.string.action_map);
+        Fragment oldFragment = getSupportFragmentManager().findFragmentByTag(mapTag);
         FragmentTransaction f = getSupportFragmentManager().beginTransaction();
         f.show(oldFragment);
         f.commit();

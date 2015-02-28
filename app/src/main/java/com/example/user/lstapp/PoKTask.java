@@ -10,14 +10,14 @@ import com.ut.mpc.utils.STRegion;
 public class PoKTask extends AsyncTask<Object, Integer, Double> {
     TextView textView;
     PlaceData place;
-    PlaceFragment.OnFragmentInteractionListener mListener;
+    PlacesFragment.OnFragmentInteractionListener mListener;
 
     @Override
     protected Double doInBackground(Object... params) {
         STRegion region = (STRegion) params[0];
         textView = (TextView) params[1];
         place = (PlaceData) params[2];
-        mListener = (PlaceFragment.OnFragmentInteractionListener) params[3];
+        mListener = (PlacesFragment.OnFragmentInteractionListener) params[3];
         double result = mListener.windowPoK(region);
         return result;
     }
