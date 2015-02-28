@@ -173,7 +173,11 @@ public class MapFragment extends Fragment implements MapEventsReceiver{
     }
 
     public void drawAllQueryResults(ArrayList<Double> poks){
-
+        int i = 0;
+        for(Polygon r : rectangles){
+            drawQueryResult(r, poks.get(i++), false);
+        }
+        mMapView.invalidate();//refresh the map
     }
 
     public void drawQueryResult(Polygon area, Double pok, boolean invalidate){
