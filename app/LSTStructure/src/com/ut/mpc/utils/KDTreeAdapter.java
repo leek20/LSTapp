@@ -55,5 +55,9 @@ public class KDTreeAdapter {
         }
     }
 
+    public int getSize(){
+        return kdtree.getSize();
+    }
+
 }
 

@@ -135,6 +135,7 @@ public class CreatePlaceFragment extends BaseFragment {
         if (getArguments() != null) {
             String boundsObjAsString = getArguments().getString(ARG_PARAM1);
             placeBounds = STRegion.fromString(boundsObjAsString);
+            System.out.println(placeBounds);
         }
     }
 
@@ -437,7 +438,7 @@ public class CreatePlaceFragment extends BaseFragment {
         mediaFile = new File(mediaStorageDir.getPath() + File.separator +
                 "IMG_"+ timeStamp + ".jpg");
 
-        DialogHelper.showDialog( "Success!","Your picture has been saved!",getActivity());
+        //DialogHelper.showDialog( "Success!","Your picture has been saved!",getActivity());
 
         return mediaFile;
     }

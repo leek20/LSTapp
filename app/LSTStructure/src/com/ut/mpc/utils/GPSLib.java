@@ -18,8 +18,8 @@ public class GPSLib {
 		
 		float xOffset, yOffset, tOffset;
 		if(type == Constants.SpatialType.GPS){
-			xOffset = boundValues.getX() * longitudeKM;
-			yOffset = boundValues.getY() * latitudeKM;
+			xOffset = boundValues.getX();
+			yOffset = boundValues.getY();
 			tOffset = boundValues.getT();
 		} else if(type == Constants.SpatialType.Meters){
 			xOffset = boundValues.getX();

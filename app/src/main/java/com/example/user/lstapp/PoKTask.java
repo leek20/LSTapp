@@ -18,7 +18,7 @@ public class PoKTask extends AsyncTask<Object, Integer, Double> {
         textView = (TextView) params[1];
         place = (PlaceData) params[2];
         mListener = (PlacesFragment.OnFragmentInteractionListener) params[3];
-        double result = mListener.windowPoK(region);
+        double result = mListener.windowPoK(region, true);
         return result;
     }
 

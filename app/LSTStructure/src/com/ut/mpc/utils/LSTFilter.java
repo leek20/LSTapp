@@ -51,6 +51,7 @@ public class LSTFilter {
 	public double windowPoK(STRegion region, boolean snap) {
 		STPoint mins = region.getMins();
 		STPoint maxs = region.getMaxs();
+
 		float xGridGran = CoverageWindow.X_GRID_GRAN;
 		float yGridGran = CoverageWindow.Y_GRID_GRAN;
 		float tGridGran = CoverageWindow.T_GRID_GRAN;
@@ -70,8 +71,15 @@ public class LSTFilter {
 
         //make and fill kdtree
         List<STPoint> boundPoints = structure.range(new STRegion(mins, maxs));
+        if(boundPoints.size() == 0){
+            return 0.0;
+        }
         KDTreeAdapter kdtree = KDTreeAdapter.makeBalancedTree(3, boundPoints);
+        System.out.println(kdtree.getSize());
 
+        STPoint boundValues = new STPoint(CoverageWindow.SPACE_RADIUS,
+                CoverageWindow.SPACE_RADIUS,
+                CoverageWindow.TEMPORAL_RADIUS);
 		for(float x = mins.getX(); x < maxs.getX(); x = x + xGridGran){
 			for(float y = mins.getY(); y < maxs.getY(); y = y + yGridGran){
 				for(float t = mins.getT(); t < maxs.getT(); t = t + tGridGran){
@@ -79,13 +87,10 @@ public class LSTFilter {
 					STPoint centerOfRegion = new STPoint(x + xCenterOffset,
 														 y + yCenterOffset,
 														 t + tCenterOffset);
-
-                    STPoint boundValues = new STPoint(CoverageWindow.SPACE_RADIUS,
-                            CoverageWindow.SPACE_RADIUS,
-                            CoverageWindow.TEMPORAL_RADIUS);
                     try {
                         STRegion miniRegion = GPSLib.getSpaceBoundQuick(centerOfRegion, boundValues, SPATIAL_TYPE);
                         List<STPoint> activePoints = kdtree.range(miniRegion);
+                        //System.out.println(activePoints);
                         //List<STPoint> activePoints = structure.range(miniRegion);
                         regionWeight = this.getPointsPoK(centerOfRegion, activePoints);
                     } catch (LSTFilterException e){

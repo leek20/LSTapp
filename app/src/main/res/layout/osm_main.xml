@@ -14,17 +14,17 @@
         android:layout_width="wrap_content"
         android:layout_weight="1"
         android:layout_height="0dp"
+        android:layout_below="@id/mapview"
         android:id="@+id/lower_group">
         <TextView
-            android:text="Lower Time Bnd: "
+            android:text="1:00 am"
             android:id="@+id/seek_lower_label"
             android:textStyle="bold"
             android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/mapview"
-            android:gravity="center_vertical"
+            android:layout_width="110dp"
+            android:gravity="center_vertical|center_horizontal"
             android:layout_alignParentLeft="true"/>
-        <SeekBar android:max="48"
+        <SeekBar android:max="23"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             android:id="@+id/seek_lower"
@@ -35,22 +35,22 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/upper_group">
-        <SeekBar android:max="48"
+        android:id="@+id/upper_group"
+        android:layout_below="@id/lower_group">
+        <TextView
+            android:text="1:00 am"
             android:layout_height="match_parent"
+            android:id="@+id/seek_upper_label"
+            android:layout_width="110dp"
+            android:textStyle="bold"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_alignParentLeft="true"/>
+        <SeekBar android:max="23"
             android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/seek_upper"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@+id/seek_upper_label"/>
-        <TextView
-            android:text="Upper Time Bnd: "
-            android:layout_height="match_parent"
-            android:id="@+id/seek_upper_label"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_above="@+id/button_query"
-            android:layout_alignParentLeft="true"/>
     </RelativeLayout>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -62,16 +62,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_query"
-            android:id="@+id/button_query"
+            android:id="@+id/window_pok_button"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:onClick="queryPins"/>
+            android:layout_alignParentBottom="true"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/label_undo"
-            android:id="@+id/button_undo"
-            android:layout_toRightOf="@+id/button_query"
+            android:text="Clear"
+            android:id="@+id/clear_button"
+            android:layout_toRightOf="@+id/window_pok_button"
             android:layout_toLeftOf="@+id/button_set_pin"
             android:layout_alignParentBottom="true"
             android:onClick="undoSelection"/>

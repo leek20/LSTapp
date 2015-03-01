@@ -219,7 +219,7 @@ public class PlacesFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(String id);
 
-        public double windowPoK(STRegion region);
+        public double windowPoK(STRegion region, boolean snap);
     }
 
 }

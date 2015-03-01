@@ -1719,17 +1719,16 @@ containing a value of this type.
         public static final int book_now=0x7f090024;
         public static final int button_camera=0x7f090058;
         public static final int button_create=0x7f09005b;
-        public static final int button_group=0x7f09006a;
-        public static final int button_query=0x7f090069;
+        public static final int button_group=0x7f090069;
         public static final int button_set_pin=0x7f09006c;
         public static final int button_storage=0x7f090059;
-        public static final int button_undo=0x7f09006b;
         public static final int buyButton=0x7f09001f;
         public static final int buy_now=0x7f090023;
         public static final int buy_with_google=0x7f090022;
         public static final int camPreview=0x7f090055;
         public static final int checkbox=0x7f09003d;
         public static final int classic=0x7f090026;
+        public static final int clear_button=0x7f09006b;
         public static final int collapseActionView=0x7f090016;
         public static final int container=0x7f090053;
         public static final int coverage=0x7f09006e;
@@ -1807,6 +1806,7 @@ containing a value of this type.
         public static final int up=0x7f090031;
         public static final int upper_group=0x7f090068;
         public static final int useLogo=0x7f090004;
+        public static final int window_pok_button=0x7f09006a;
         public static final int withText=0x7f090015;
         public static final int wrap_content=0x7f090019;
     }
@@ -1840,17 +1840,16 @@ containing a value of this type.
         public static final int abc_simple_dropdown_hint=0x7f030016;
         public static final int activity_home=0x7f030017;
         public static final int fragment_home=0x7f030018;
-        public static final int fragment_item=0x7f030023;
+        public static final int fragment_item=0x7f030022;
         public static final int fragment_item_grid=0x7f030019;
         public static final int fragment_item_list=0x7f03001a;
         public static final int fragment_native_camera=0x7f03001b;
         public static final int fragment_place=0x7f03001c;
-        public static final int fragment_places=0x7f03001d;
-        public static final int fragment_settings=0x7f03001e;
-        public static final int location_name_dialog=0x7f03001f;
-        public static final int osm_main=0x7f030020;
-        public static final int place_list_item=0x7f030021;
-        public static final int support_simple_spinner_dropdown_item=0x7f030022;
+        public static final int fragment_settings=0x7f03001d;
+        public static final int location_name_dialog=0x7f03001e;
+        public static final int osm_main=0x7f03001f;
+        public static final int place_list_item=0x7f030020;
+        public static final int support_simple_spinner_dropdown_item=0x7f030021;
     }
     public static final class menu {
         public static final int menu_home=0x7f0e0000;

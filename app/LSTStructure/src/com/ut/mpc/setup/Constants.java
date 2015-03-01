@@ -8,11 +8,11 @@ public class Constants {
 		public static float TOTAL_WEIGHT = 2;
 		
 		public static float SPACE_WEIGHT = 1;
-		public static float SPACE_RADIUS = 10;
+		public static float SPACE_RADIUS = .009f;
 		public static float SPACE_DECAY = SPACE_WEIGHT / (SPACE_RADIUS);
 		
 		public static float TEMPORAL_WEIGHT = TOTAL_WEIGHT - 1;
-		public static float TEMPORAL_RADIUS = 10;
+		public static float TEMPORAL_RADIUS = 1000 * 3600 * 4; //in ms, 4 hrs
 		public static float TEMPORAL_DECAY = TEMPORAL_WEIGHT / (TEMPORAL_RADIUS);
 		
 		//TODO: add SPACE-TEMPORAL Trim so nearby doesn't need to trim if they are insignificant points
@@ -24,8 +24,8 @@ public class Constants {
 		//public static float CURRENT_TIMESTAMP = 0f; //this is temporary for testing purposes only, eventually this will be a method call to current time
 		//public static float REFERENCE_TIMESTAMP = 0f;
 		
-		public static float LONG_KM_EST = .099f;
-		public static float LAT_KM_EST = .011f;
+		public static float LONG_KM_EST = .009f;
+		public static float LAT_KM_EST = .001f;
 		
 		public static boolean GRID_DEFAULT = true;
 		public static float X_GRID_GRAN = (GRID_DEFAULT) ? SPACE_RADIUS / 2 : .001f; //allow fine tuning by setting grid default to off

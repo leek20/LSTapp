@@ -14,8 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.example.nathanielwendt.lstrtree.SQLiteRTree;
 import com.ut.mpc.utils.LSTFilter;
@@ -23,10 +21,8 @@ import com.ut.mpc.utils.STPoint;
 import com.ut.mpc.utils.STRegion;
 
 import org.osmdroid.bonuspack.overlays.Marker;
-import org.osmdroid.bonuspack.overlays.Polygon;
 import org.osmdroid.util.GeoPoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -254,29 +250,7 @@ public class HomeActivity extends ActionBarActivity implements
 
     }
 
-    public void queryPins(View view) {
-        // Do something in response to button
-        Toast.makeText(this, "Query Timeeeeee~~", Toast.LENGTH_SHORT).show();
-        View lGroup = this.findViewById(R.id.lower_group);
-        View uGroup = this.findViewById(R.id.upper_group);
-        if (lGroup != null && uGroup != null) {
-            SeekBar lSeek = (SeekBar) lGroup.findViewById(R.id.seek_lower);
-            SeekBar uSeek = (SeekBar) uGroup.findViewById(R.id.seek_upper);
-            int lTimeBnd = lSeek.getProgress();
-            int uTimeBnd = lSeek.getProgress();
-            MapFragment mFragment = (MapFragment) getSupportFragmentManager().findFragmentByTag("Map");
-            ArrayList<Polygon> areasOfInterest = mFragment.rectangles;
 
-            ArrayList<Double> poks = new ArrayList<Double>();
-            for(Polygon poly : areasOfInterest){
-                STRegion region = rectToRegion(poly.getPoints());
-                double p = filter.windowPoK(region);
-                poks.add(p);
-            }
-            mFragment.drawAllQueryResults(poks);
-            //Toast.makeText(this, "Query Redraw Complete", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     public void confirmPin(View view) {
         //Toast.makeText(this, "Drop the pin", Toast.LENGTH_SHORT).show();
@@ -285,10 +259,22 @@ public class HomeActivity extends ActionBarActivity implements
             Marker pin = ((MapFragment) mFragment).confirmPinDropped();
             if(pin == null)
                 return;
-            int ind = ((MapFragment) mFragment).mMarkers.indexOf(pin); //markers and rectangles are indexed the same
-            List<GeoPoint> bnds = ((MapFragment) mFragment).rectangles.get(ind).getPoints();
-            String qRegion = rectToRegion(bnds).toString();
-            createPlace(qRegion);
+            GeoPoint pinLoc = pin.getPosition();
+
+            STPoint center = new STPoint((float) pinLoc.getLongitude(), (float) pinLoc.getLatitude(), System.currentTimeMillis());
+            Log.d("LST", center.toString());
+
+            //bounds of about 1000 feet:
+            STPoint mins = new STPoint(center.getX() - .0027432f, center.getY() - 0.0003048f, 0f);
+            STPoint maxs = new STPoint(center.getX() + .0027432f, center.getY() + 0.0003048f, Float.MAX_VALUE);
+
+            //int ind = ((MapFragment) mFragment).mMarkers.indexOf(pin); //markers and overlays are indexed the same
+            //List<GeoPoint> bnds = ((Polygon) ((MapFragment) mFragment).overlays.get(ind)).getPoints();
+
+            STRegion region = new STRegion(mins, maxs);
+            createPlace(region.toString());
+
+            ((MapFragment) mFragment).clearMap(); //on return from creation map will be cleared
         }
     }
 
@@ -315,8 +301,9 @@ public class HomeActivity extends ActionBarActivity implements
     }
 
     @Override
-    public double windowPoK(STRegion region) {
-        return Math.random();
-        //return filter.windowPoK(region);
+    public double windowPoK(STRegion region, boolean snap) {
+        //return Math.random();
+        Log.d("LST", region.toString());
+        return filter.windowPoK(region, snap);
     }
 }
